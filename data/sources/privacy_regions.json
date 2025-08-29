@@ -1,0 +1,117 @@
+{
+  "_meta": {
+    "version": 1,
+    "generated_at": "2025-08-25T10:07:39.385Z",
+    "published_at": "2025-08-25T10:07:39.385Z",
+    "source": "compiled-static"
+  },
+  "data": {
+    "version": 1,
+    "regions": {
+      "EU": {
+        "regime": "strict",
+        "laws": [
+          "GDPR"
+        ],
+        "cookie_consent": "required"
+      },
+      "IS": {
+        "regime": "strict",
+        "laws": [
+          "GDPR"
+        ],
+        "cookie_consent": "required"
+      },
+      "NO": {
+        "regime": "strict",
+        "laws": [
+          "GDPR"
+        ],
+        "cookie_consent": "required"
+      },
+      "LI": {
+        "regime": "strict",
+        "laws": [
+          "GDPR"
+        ],
+        "cookie_consent": "required"
+      },
+      "GB": {
+        "regime": "strict",
+        "laws": [
+          "GDPR"
+        ],
+        "cookie_consent": "required"
+      },
+      "US": {
+        "regime": "opt_out",
+        "laws": [
+          "CCPA/CPRA",
+          "PIPEDA",
+          "LGPD"
+        ],
+        "cookie_consent": "likely_required"
+      },
+      "CA": {
+        "regime": "opt_out",
+        "laws": [
+          "CCPA/CPRA",
+          "PIPEDA",
+          "LGPD"
+        ],
+        "cookie_consent": "likely_required"
+      },
+      "BR": {
+        "regime": "opt_out",
+        "laws": [
+          "CCPA/CPRA",
+          "PIPEDA",
+          "LGPD"
+        ],
+        "cookie_consent": "likely_required"
+      },
+      "CN": {
+        "regime": "medium",
+        "laws": [
+          "local"
+        ],
+        "cookie_consent": "recommended"
+      },
+      "JP": {
+        "regime": "medium",
+        "laws": [
+          "local"
+        ],
+        "cookie_consent": "recommended"
+      },
+      "KR": {
+        "regime": "medium",
+        "laws": [
+          "local"
+        ],
+        "cookie_consent": "recommended"
+      },
+      "AU": {
+        "regime": "medium",
+        "laws": [
+          "local"
+        ],
+        "cookie_consent": "recommended"
+      },
+      "NZ": {
+        "regime": "medium",
+        "laws": [
+          "local"
+        ],
+        "cookie_consent": "recommended"
+      },
+      "SG": {
+        "regime": "medium",
+        "laws": [
+          "local"
+        ],
+        "cookie_consent": "recommended"
+      }
+    }
+  }
+}

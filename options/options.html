@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>地域适配分析器 - 设置与详细结果</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="options-container">
+    <!-- 导航栏 -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="dashboard">控制面板</button>
+      <button class="nav-tab" data-tab="settings">设置</button>
+      <button class="nav-tab" data-tab="results">详细结果</button>
+      <button class="nav-tab" data-tab="help">帮助</button>
+    </nav>
+
+    <!-- 控制面板 -->
+    <div id="dashboard" class="tab-content active">
+      <div class="dashboard-header">
+        <h1>地域适配分析器</h1>
+        <p class="subtitle">帮助跨境电商优化全球市场适配性</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="dashboard-card">
+          <div class="card-icon">📊</div>
+          <h3>最近分析</h3>
+          <div id="recentAnalyses">
+            <p class="placeholder">暂无分析记录</p>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-icon">🌍</div>
+          <h3>支持地区</h3>
+          <div class="supported-regions">
+            <span class="region-tag">🇺🇸 美国</span>
+            <span class="region-tag">🇬🇧 英国</span>
+            <span class="region-tag">🇩🇪 德国</span>
+            <span class="region-tag">🇫🇷 法国</span>
+            <span class="region-tag">🇯🇵 日本</span>
+            <span class="region-tag">🇨🇳 中国</span>
+            <span class="region-tag">🇰🇷 韩国</span>
+            <span class="region-tag">🇦🇪 阿联酋</span>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-icon">🤖</div>
+          <h3>AI状态</h3>
+          <div id="aiStatus">
+            <p class="loading">检查中...</p>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-icon">📈</div>
+          <h3>统计信息</h3>
+          <div id="statistics">
+            <div class="stat-item">
+              <span class="stat-label">总分析次数</span>
+              <span class="stat-value" id="totalAnalyses">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">平均评分</span>
+              <span class="stat-value" id="avgScore">--</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置页面 -->
+    <div id="settings" class="tab-content">
+      <h2>扩展设置</h2>
+
+      <!-- AI服务配置 -->
+      <div class="settings-section">
+        <h3>AI分析服务</h3>
+        <p class="section-desc">配置AI服务提供商的API密钥以启用深度分析功能</p>
+        
+        <div class="ai-providers">
+          <div class="provider-card">
+            <div class="provider-header">
+              <h4>DeepSeek</h4>
+              <span class="provider-status" id="deepseekStatus">未配置</span>
+            </div>
+            <input type="password" id="deepseekKey" placeholder="输入DeepSeek API密钥" class="api-key-input">
+            <button class="btn-test" data-provider="deepseek">测试连接</button>
+          </div>
+
+          <div class="provider-card">
+            <div class="provider-header">
+              <h4>GLM-4 (智谱)</h4>
+              <span class="provider-status" id="zhipuStatus">未配置</span>
+            </div>
+            <input type="password" id="zhipuKey" placeholder="输入智谱AI API密钥" class="api-key-input">
+            <button class="btn-test" data-provider="zhipu">测试连接</button>
+          </div>
+
+          <div class="provider-card">
+            <div class="provider-header">
+              <h4>Qwen (通义千问)</h4>
+              <span class="provider-status" id="qwenStatus">未配置</span>
+            </div>
+            <input type="password" id="qwenKey" placeholder="输入Qwen API密钥" class="api-key-input">
+            <button class="btn-test" data-provider="qwen">测试连接</button>
+          </div>
+
+          <div class="provider-card">
+            <div class="provider-header">
+              <h4>OpenAI GPT-4</h4>
+              <span class="provider-status" id="openaiStatus">未配置</span>
+            </div>
+            <input type="password" id="openaiKey" placeholder="输入OpenAI API密钥" class="api-key-input">
+            <button class="btn-test" data-provider="openai">测试连接</button>
+          </div>
+        </div>
+
+        <div class="provider-selection">
+          <label for="defaultProvider">默认AI服务商：</label>
+          <select id="defaultProvider">
+            <option value="deepseek">DeepSeek</option>
+            <option value="zhipu">GLM-4 (智谱)</option>
+            <option value="qwen">Qwen (通义千问)</option>
+            <option value="openai">OpenAI GPT-4</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 分析设置 -->
+      <div class="settings-section">
+        <h3>分析设置</h3>
+        
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="autoAnalyze">
+            <span class="checkmark"></span>
+            自动分析新页面
+          </label>
+          <p class="setting-desc">在支持的电商网站上自动触发分析</p>
+        </div>
+
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="detailedReports" checked>
+            <span class="checkmark"></span>
+            生成详细报告
+          </label>
+          <p class="setting-desc">包含具体建议和优化方案</p>
+        </div>
+
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="saveHistory" checked>
+            <span class="checkmark"></span>
+            保存分析历史
+          </label>
+          <p class="setting-desc">本地保存分析结果用于对比</p>
+        </div>
+      </div>
+
+      <!-- 高级设置 -->
+      <div class="settings-section">
+        <h3>高级设置</h3>
+        
+        <div class="setting-item">
+          <label for="serverAddress">后端服务器地址:</label>
+          <input type="text" id="serverAddress" value="http://192.168.31.169:3000" placeholder="http://192.168.31.169:3000">
+          <p class="setting-desc">配置后端API服务器的地址</p>
+        </div>
+        
+        <div class="setting-item">
+          <label for="analysisTimeout">分析超时时间 (秒):</label>
+          <input type="number" id="analysisTimeout" min="30" max="300" value="120">
+        </div>
+
+        <div class="setting-item">
+          <label for="maxRetries">API重试次数:</label>
+          <input type="number" id="maxRetries" min="1" max="5" value="3">
+        </div>
+      </div>
+
+      <div class="settings-actions">
+        <button class="btn btn-primary" id="saveSettings">保存设置</button>
+        <button class="btn btn-secondary" id="resetSettings">重置为默认</button>
+      </div>
+    </div>
+
+    <!-- 详细结果页面 -->
+    <div id="results" class="tab-content">
+      <div class="results-header">
+        <h2>详细分析结果</h2>
+        <div class="results-actions">
+          <button class="btn btn-outline" id="exportHTML">导出HTML</button>
+          <button class="btn btn-outline" id="exportJSON">导出JSON</button>
+          <button class="btn btn-outline" id="exportCSV">导出CSV</button>
+        </div>
+      </div>
+
+      <div id="detailedResults">
+        <div class="no-results">
+          <div class="no-results-icon">📊</div>
+          <h3>暂无分析结果</h3>
+          <p>使用扩展分析页面后，详细结果将在此显示</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 帮助页面 -->
+    <div id="help" class="tab-content">
+      <h2>使用帮助</h2>
+
+      <div class="help-section">
+        <h3>如何开始</h3>
+        <ol>
+          <li>访问任意跨境电商网站（如Shopify商店、独立站等）</li>
+          <li>点击浏览器工具栏中的扩展图标</li>
+          <li>选择目标市场地区</li>
+          <li>点击"开始分析"按钮</li>
+          <li>查看分析结果和优化建议</li>
+        </ol>
+      </div>
+
+      <div class="help-section">
+        <h3>分析维度说明</h3>
+        <div class="dimension-grid">
+          <div class="dimension-card">
+            <h4>🌐 语言适配</h4>
+            <p>检查页面语言与目标地区的匹配度、术语本地化程度、多语言支持等</p>
+          </div>
+          <div class="dimension-card">
+            <h4>🎭 文化适配</h4>
+            <p>分析颜色、符号、节日营销等文化元素的地域适配性</p>
+          </div>
+          <div class="dimension-card">
+            <h4>⚖️ 合规性</h4>
+            <p>评估隐私政策、广告内容、禁售商品等合规风险</p>
+          </div>
+          <div class="dimension-card">
+            <h4>👥 用户体验</h4>
+            <p>检查页面性能、移动适配、支付方式等用户体验要素</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>AI分析配置</h3>
+        <p>扩展支持多个AI服务商，建议配置至少一个API密钥以获得最佳分析效果：</p>
+        <ul>
+          <li><strong>DeepSeek</strong>: 高性价比的中文优化模型</li>
+          <li><strong>GLM-4</strong>: 智谱AI的多模态大模型</li>
+          <li><strong>Qwen</strong>: 阿里巴巴通义千问系列</li>
+          <li><strong>GPT-4</strong>: OpenAI的旗舰模型</li>
+        </ul>
+      </div>
+
+      <div class="help-section">
+        <h3>常见问题</h3>
+        <div class="faq">
+          <details>
+            <summary>为什么有些页面无法分析？</summary>
+            <p>某些网站可能有内容安全策略限制。请确保页面已完全加载，或尝试刷新后再次分析。</p>
+          </details>
+          <details>
+            <summary>AI分析失败怎么办？</summary>
+            <p>请检查API密钥是否正确配置，网络连接是否正常。扩展会自动降级使用本地规则分析。</p>
+          </details>
+          <details>
+            <summary>如何提高分析准确性？</summary>
+            <p>建议配置多个AI服务商作为备选，并在设置中启用详细报告功能。</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>联系支持</h3>
+        <p>如果您遇到问题或有建议，请通过以下方式联系我们：</p>
+        <ul>
+          <li>GitHub Issues: <a href="#" target="_blank">提交问题</a></li>
+          <li>邮件支持: support@example.com</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

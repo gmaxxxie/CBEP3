@@ -1,0 +1,14 @@
+{
+  "generated_at": "2025-08-25T10:07:39.385Z",
+  "files": [
+    "countries.json",
+    "rates-ecb.json",
+    "holidays.json",
+    "timezones.json",
+    "cldr-core.json",
+    "addresses.json",
+    "tlds.json",
+    "taxes.json",
+    "privacy_regions.json"
+  ]
+}

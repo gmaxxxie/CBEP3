@@ -1,0 +1,13 @@
+{
+  "_meta": {
+    "version": 1,
+    "generated_at": "2025-08-25T10:07:39.374Z",
+    "published_at": "2025-08-25T10:07:39.374Z",
+    "source": "ECB"
+  },
+  "data": {
+    "info": {
+      "source": "exchangerate.host (ECB-based)"
+    }
+  }
+}

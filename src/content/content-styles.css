@@ -1,0 +1,230 @@
+/* Cross-Border E-commerce Localization Analyzer - Content Script Styles */
+
+/* Analysis overlay container */
+.cbla-analysis-overlay {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  max-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.cbla-analysis-overlay.hidden {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Analysis progress indicator */
+.cbla-progress {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.cbla-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+/* Status indicator */
+.cbla-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cbla-status-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+.cbla-status-icon.analyzing {
+  background: #f093fb;
+}
+
+.cbla-status-icon.complete {
+  background: #4CAF50;
+  animation: none;
+}
+
+.cbla-status-icon.error {
+  background: #f44336;
+  animation: none;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Close button */
+.cbla-close {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cbla-close:hover {
+  opacity: 0.7;
+}
+
+/* Highlight styles for analyzed elements */
+.cbla-highlight {
+  position: relative;
+}
+
+.cbla-highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(102, 126, 234, 0.1);
+  border: 2px solid #667eea;
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+.cbla-highlight.language-issue::after {
+  border-color: #ff9800;
+  background: rgba(255, 152, 0, 0.1);
+}
+
+.cbla-highlight.culture-issue::after {
+  border-color: #e91e63;
+  background: rgba(233, 30, 99, 0.1);
+}
+
+.cbla-highlight.compliance-issue::after {
+  border-color: #f44336;
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.cbla-highlight.ux-issue::after {
+  border-color: #9c27b0;
+  background: rgba(156, 39, 176, 0.1);
+}
+
+/* Tooltip for highlighted elements */
+.cbla-tooltip {
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10001;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.cbla-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: #333;
+}
+
+.cbla-highlight:hover .cbla-tooltip {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cbla-analysis-overlay {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    font-size: 13px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .cbla-tooltip {
+    background: #555;
+  }
+  
+  .cbla-tooltip::after {
+    border-top-color: #555;
+  }
+}
+
+/* Animation classes */
+.cbla-fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+.cbla-slide-in {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Platform-specific indicators */
+.cbla-platform-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  margin-left: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cbla-platform-badge.shopify {
+  background: rgba(95, 158, 160, 0.3);
+}
+
+.cbla-platform-badge.woocommerce {
+  background: rgba(150, 88, 138, 0.3);
+}
+
+.cbla-platform-badge.magento {
+  background: rgba(238, 118, 35, 0.3);
+}

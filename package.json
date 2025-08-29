@@ -1,0 +1,27 @@
+{
+  "name": "cbep3-localization-analyzer",
+  "version": "1.0.0",
+  "description": "Chrome extension for cross-border e-commerce content localization analysis",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "build:dev": "webpack --mode=development",
+    "dev": "webpack --mode=development --watch",
+    "lint": "eslint src/ --ext .js,.ts",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4",
+    "babel-loader": "^9.1.0",
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
+    "css-loader": "^6.8.0",
+    "style-loader": "^3.3.3",
+    "eslint": "^8.44.0",
+    "jest": "^29.6.0"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}

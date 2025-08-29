@@ -1,0 +1,1015 @@
+{
+  "_meta": {
+    "version": 1,
+    "generated_at": "2025-08-25T10:07:39.384Z",
+    "published_at": "2025-08-25T10:07:39.384Z",
+    "source": "Google libaddressinput"
+  },
+  "data": {
+    "index": {},
+    "countries": [
+      "TN",
+      "AD",
+      "VN",
+      "EC",
+      "PR",
+      "US",
+      "GS",
+      "IL",
+      "GB",
+      "VG",
+      "MM",
+      "PL",
+      "TC",
+      "AF",
+      "GP",
+      "KE",
+      "AS",
+      "AO",
+      "BT",
+      "MT",
+      "JE",
+      "RU",
+      "NP",
+      "GW",
+      "IQ",
+      "SD",
+      "PF",
+      "DJ",
+      "MZ",
+      "VI",
+      "AW",
+      "SH",
+      "ZA",
+      "LI",
+      "ST",
+      "BI",
+      "RW",
+      "BE",
+      "GU",
+      "JO",
+      "MP",
+      "GQ",
+      "MH",
+      "NU",
+      "ES",
+      "KG",
+      "BV",
+      "MR",
+      "WS",
+      "MW",
+      "PA",
+      "TH",
+      "TR",
+      "PH",
+      "PN",
+      "SI",
+      "AE",
+      "GE",
+      "GR",
+      "AM",
+      "CC",
+      "CR",
+      "KI",
+      "TZ",
+      "SS",
+      "IR",
+      "FM",
+      "SJ",
+      "MN",
+      "MD",
+      "NZ",
+      "SZ",
+      "SO",
+      "LC",
+      "GY",
+      "IM",
+      "FO",
+      "BL",
+      "WF",
+      "IN",
+      "NE",
+      "SX",
+      "CD",
+      "CG",
+      "KR",
+      "CI",
+      "MV",
+      "RS",
+      "ML",
+      "DZ",
+      "LA",
+      "CM",
+      "FI",
+      "ZW",
+      "MS",
+      "BO",
+      "LS",
+      "HU",
+      "TM",
+      "NO",
+      "PE",
+      "CU",
+      "LT",
+      "KN",
+      "GG",
+      "MU",
+      "SA",
+      "CW",
+      "BJ",
+      "SK",
+      "IO",
+      "TV",
+      "GL",
+      "CV",
+      "UZ",
+      "SE",
+      "BD",
+      "TW",
+      "IT",
+      "TD",
+      "SY",
+      "CL",
+      "SN",
+      "BF",
+      "RO",
+      "BR",
+      "YT",
+      "DM",
+      "EE",
+      "TG",
+      "KH",
+      "DO",
+      "NF",
+      "CA",
+      "TF",
+      "PY",
+      "KZ",
+      "ID",
+      "LU",
+      "EH",
+      "KM",
+      "AG",
+      "BG",
+      "FK",
+      "HN",
+      "UY",
+      "PM",
+      "ET",
+      "TJ",
+      "TK",
+      "BW",
+      "AL",
+      "NG",
+      "GM",
+      "CY",
+      "BQ",
+      "VU",
+      "PT",
+      "CN",
+      "SG",
+      "DK",
+      "GH",
+      "VC",
+      "MF",
+      "LR",
+      "HK",
+      "GT",
+      "SL",
+      "MC",
+      "LB",
+      "SC",
+      "ZM",
+      "VE",
+      "SR",
+      "RE",
+      "UA",
+      "LV",
+      "DE",
+      "ER",
+      "HR",
+      "PG",
+      "PW",
+      "BA",
+      "ME",
+      "LY",
+      "QA",
+      "PK",
+      "KP",
+      "SM",
+      "GN",
+      "AI",
+      "BN",
+      "MG",
+      "AZ",
+      "PS",
+      "CF",
+      "GD",
+      "BH",
+      "AT",
+      "FR",
+      "GI",
+      "SV",
+      "MK",
+      "GF",
+      "NA",
+      "AU",
+      "MA",
+      "IE",
+      "BM",
+      "NI",
+      "AX",
+      "BS",
+      "OM",
+      "CH",
+      "CZ",
+      "IS",
+      "JP",
+      "NL",
+      "BZ",
+      "BB",
+      "BY",
+      "TL",
+      "UG",
+      "YE",
+      "MQ",
+      "HT",
+      "AR",
+      "EG",
+      "KW",
+      "KY",
+      "CK",
+      "AQ",
+      "GA",
+      "LK",
+      "TT",
+      "CO",
+      "VA",
+      "CX",
+      "HM",
+      "MO",
+      "MX",
+      "NC",
+      "SB",
+      "XK",
+      "NR",
+      "TO",
+      "MY",
+      "FJ",
+      "JM",
+      "UM"
+    ],
+    "schemas": {
+      "TN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AD": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "VN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "EC": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "US": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GB": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "VG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TC": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GP": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "JE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "RU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NP": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IQ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SD": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "DJ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "VI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ZA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ST": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "RW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "JO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MP": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GQ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ES": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BV": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "WS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CC": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "FM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SJ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MD": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LC": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "FO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "WF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SX": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CD": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MV": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "RS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ML": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "DZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "FI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ZW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "HU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BJ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TV": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CV": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "UZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BD": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TD": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "RO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "YT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "DM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "EE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "DO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ID": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "EH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "FK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "HN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "UY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ET": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TJ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BQ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "VU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "DK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "VC": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "HK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MC": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LB": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SC": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ZM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "VE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "RE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "UA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LV": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "DE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ER": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "HR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "ME": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "QA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KP": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BN": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "PS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GD": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "FR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SV": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GF": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AU": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NI": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AX": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "OM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CH": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "IS": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "JP": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BZ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BB": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "BY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TL": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "UG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "YE": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MQ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "HT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "EG": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KW": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "KY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "AQ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "GA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "LK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TT": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "VA": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "CX": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "HM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MX": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NC": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "SB": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "XK": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "NR": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "TO": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "MY": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "FJ": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "JM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      },
+      "UM": {
+        "error": "SyntaxError: Unexpected non-whitespace character after JSON at position 3"
+      }
+    }
+  }
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>地域适配分析器</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- 头部 -->
+    <div class="header">
+      <div class="logo">
+        <img src="../assets/icons/icon-32.png" alt="Logo" class="logo-img">
+        <h1 class="title">地域适配分析器</h1>
+      </div>
+      <div class="status" id="status">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">准备就绪</span>
+      </div>
+    </div>
+
+    <!-- 地区选择 -->
+    <div class="section">
+      <h2 class="section-title">目标市场选择</h2>
+      <div class="region-grid" id="regionGrid">
+        <div class="region-item" data-region="US">
+          <div class="region-flag">🇺🇸</div>
+          <div class="region-info">
+            <div class="region-name">美国</div>
+            <div class="region-lang">English</div>
+          </div>
+        </div>
+        <div class="region-item" data-region="GB">
+          <div class="region-flag">🇬🇧</div>
+          <div class="region-info">
+            <div class="region-name">英国</div>
+            <div class="region-lang">English</div>
+          </div>
+        </div>
+        <div class="region-item" data-region="DE">
+          <div class="region-flag">🇩🇪</div>
+          <div class="region-info">
+            <div class="region-name">德国</div>
+            <div class="region-lang">Deutsch</div>
+          </div>
+        </div>
+        <div class="region-item" data-region="FR">
+          <div class="region-flag">🇫🇷</div>
+          <div class="region-info">
+            <div class="region-name">法国</div>
+            <div class="region-lang">Français</div>
+          </div>
+        </div>
+        <div class="region-item" data-region="JP">
+          <div class="region-flag">🇯🇵</div>
+          <div class="region-info">
+            <div class="region-name">日本</div>
+            <div class="region-lang">日本語</div>
+          </div>
+        </div>
+        <div class="region-item" data-region="CN">
+          <div class="region-flag">🇨🇳</div>
+          <div class="region-info">
+            <div class="region-name">中国</div>
+            <div class="region-lang">中文</div>
+          </div>
+        </div>
+        <div class="region-item" data-region="KR">
+          <div class="region-flag">🇰🇷</div>
+          <div class="region-info">
+            <div class="region-name">韩国</div>
+            <div class="region-lang">한국어</div>
+          </div>
+        </div>
+        <div class="region-item" data-region="AE">
+          <div class="region-flag">🇦🇪</div>
+          <div class="region-info">
+            <div class="region-name">阿联酋</div>
+            <div class="region-lang">العربية</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 分析选项 -->
+    <div class="section">
+      <h2 class="section-title">分析选项</h2>
+      <div class="analysis-options">
+        <label class="option-item">
+          <input type="checkbox" id="enableLocal" checked>
+          <span class="checkmark"></span>
+          <span class="option-text">本地规则分析</span>
+          <span class="option-desc">快速基础分析</span>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" id="enableAI" checked>
+          <span class="checkmark"></span>
+          <span class="option-text">AI深度分析</span>
+          <span class="option-desc">智能语义理解</span>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" id="enablePerformance">
+          <span class="checkmark"></span>
+          <span class="option-text">性能分析</span>
+          <span class="option-desc">用户体验评估</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="actions">
+      <button class="btn btn-primary" id="analyzeBtn">
+        <span class="btn-icon">🔍</span>
+        <span class="btn-text">开始分析</span>
+      </button>
+      <button class="btn btn-secondary" id="settingsBtn">
+        <span class="btn-icon">⚙️</span>
+        <span class="btn-text">设置</span>
+      </button>
+    </div>
+
+    <!-- 分析结果 -->
+    <div class="results-section" id="resultsSection" style="display: none;">
+      <h2 class="section-title">分析结果</h2>
+      
+      <!-- 总体评分 -->
+      <div class="overall-score" id="overallScore">
+        <div class="score-circle">
+          <div class="score-number" id="scoreNumber">--</div>
+          <div class="score-label">总分</div>
+        </div>
+        <div class="score-details">
+          <div class="score-item">
+            <span class="score-category">语言适配</span>
+            <div class="score-bar">
+              <div class="score-fill" id="languageScore"></div>
+            </div>
+            <span class="score-value" id="languageValue">--</span>
+          </div>
+          <div class="score-item">
+            <span class="score-category">文化适配</span>
+            <div class="score-bar">
+              <div class="score-fill" id="cultureScore"></div>
+            </div>
+            <span class="score-value" id="cultureValue">--</span>
+          </div>
+          <div class="score-item">
+            <span class="score-category">合规性</span>
+            <div class="score-bar">
+              <div class="score-fill" id="complianceScore"></div>
+            </div>
+            <span class="score-value" id="complianceValue">--</span>
+          </div>
+          <div class="score-item">
+            <span class="score-category">用户体验</span>
+            <div class="score-bar">
+              <div class="score-fill" id="uxScore"></div>
+            </div>
+            <span class="score-value" id="uxValue">--</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 问题列表 -->
+      <div class="issues-list" id="issuesList"></div>
+
+      <!-- 操作按钮 -->
+      <div class="result-actions">
+        <button class="btn btn-outline" id="exportBtn">
+          <span class="btn-icon">📄</span>
+          <span class="btn-text">导出报告</span>
+        </button>
+        <button class="btn btn-outline" id="detailsBtn">
+          <span class="btn-icon">📊</span>
+          <span class="btn-text">详细结果</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 加载状态 -->
+    <div class="loading" id="loading" style="display: none;">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">正在分析页面内容...</div>
+      <div class="loading-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">初始化...</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../src/data/data-loader.js"></script>
+  <script src="../src/rules/rule-engine.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

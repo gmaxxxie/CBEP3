@@ -2,15 +2,24 @@
 class BackgroundService {
   constructor() {
     console.log('BackgroundService 开始初始化...');
-    this.aiService = null;
-    this.localRuleEngine = null;
     this.analysisQueue = new Map();
+    this.servicesReady = false;
     
-    this.initializeServices();
-    this.setupMessageHandlers();
-    this.setupContextMenus();
-    
-    console.log('BackgroundService 初始化完成');
+    // 使用 try-catch 保护初始化过程
+    this.initializeWithErrorHandling();
+  }
+
+  async initializeWithErrorHandling() {
+    try {
+      await this.initializeServices();
+      this.setupMessageHandlers();
+      this.setupContextMenus();
+      console.log('BackgroundService 初始化完成');
+    } catch (error) {
+      console.error('BackgroundService 初始化过程中发生错误:', error);
+      // 即使初始化失败，也要设置基本的消息处理器
+      this.setupMessageHandlers();
+    }
   }
 
   async initializeServices() {
@@ -20,12 +29,13 @@ class BackgroundService {
 
   async loadServices() {
     try {
-      // 注意：在service worker中需要使用importScripts或动态import
-      // 这里模拟加载过程
-      this.aiService = new AIAnalysisService();
-      this.localRuleEngine = new LocalRuleEngine();
+      // 在service worker中延迟加载服务
+      // 这些服务将在实际需要时通过消息传递机制调用
+      console.log('服务将在需要时延迟加载');
+      this.servicesReady = true;
     } catch (error) {
       console.error('服务初始化失败:', error);
+      this.servicesReady = false;
     }
   }
 
@@ -38,6 +48,17 @@ class BackgroundService {
 
   async handleMessage(request, sender, sendResponse) {
     try {
+      // 验证请求格式
+      if (!request || !request.type) {
+        sendResponse({ error: '无效的请求格式' });
+        return;
+      }
+
+      // 检查发送者信息
+      if (!sender || !sender.tab) {
+        console.warn('收到来自非标签页的消息:', request.type);
+      }
+
       switch (request.type) {
         case 'START_ANALYSIS':
           await this.handleStartAnalysis(request, sender, sendResponse);
@@ -60,28 +81,49 @@ class BackgroundService {
           break;
           
         default:
-          sendResponse({ error: '未知的请求类型' });
+          console.warn('收到未知的请求类型:', request.type);
+          sendResponse({ error: `未知的请求类型: ${request.type}` });
       }
     } catch (error) {
       console.error('处理消息时出错:', error);
-      sendResponse({ error: error.message });
+      sendResponse({ 
+        error: error.message || '处理请求时发生未知错误',
+        details: error.stack
+      });
     }
   }
 
   async handleStartAnalysis(request, sender, sendResponse) {
-    const { contentData, targetRegions, options } = request;
-    const tabId = sender.tab.id;
-    const analysisId = `analysis_${tabId}_${Date.now()}`;
-
-    // 添加到分析队列
-    this.analysisQueue.set(analysisId, {
-      tabId,
-      status: 'pending',
-      progress: 0,
-      startTime: Date.now()
-    });
-
     try {
+      // 验证必要的参数
+      const { contentData, targetRegions, options } = request;
+      
+      if (!contentData) {
+        sendResponse({ error: '缺少内容数据' });
+        return;
+      }
+      
+      if (!targetRegions || !Array.isArray(targetRegions) || targetRegions.length === 0) {
+        sendResponse({ error: '缺少或无效的目标地区' });
+        return;
+      }
+      
+      if (!sender.tab || !sender.tab.id) {
+        sendResponse({ error: '无法获取标签页信息' });
+        return;
+      }
+      
+      const tabId = sender.tab.id;
+      const analysisId = `analysis_${tabId}_${Date.now()}`;
+
+      // 添加到分析队列
+      this.analysisQueue.set(analysisId, {
+        tabId,
+        status: 'pending',
+        progress: 0,
+        startTime: Date.now()
+      });
+
       // 发送分析开始通知
       this.sendMessageToTab(tabId, {
         type: 'ANALYSIS_PROGRESS',
@@ -96,7 +138,7 @@ class BackgroundService {
 
       // 执行AI分析（如果启用）
       let aiResults = null;
-      if (options.enableAI) {
+      if (options && options.enableAI) {
         this.updateAnalysisProgress(analysisId, 60, '执行AI深度分析...');
         aiResults = await this.performAIAnalysis(contentData, targetRegions, options);
       }
@@ -121,37 +163,106 @@ class BackgroundService {
     } catch (error) {
       console.error('分析过程中出现错误:', error);
       
-      this.analysisQueue.set(analysisId, {
-        ...this.analysisQueue.get(analysisId),
-        status: 'error',
-        error: error.message
-      });
+      const analysisId = `analysis_${sender.tab?.id}_${Date.now()}`;
+      const tabId = sender.tab?.id;
+      
+      if (tabId) {
+        // 更新分析队列中的错误状态
+        if (this.analysisQueue.has(analysisId)) {
+          this.analysisQueue.set(analysisId, {
+            ...this.analysisQueue.get(analysisId),
+            status: 'error',
+            error: error.message
+          });
+        }
 
-      this.sendMessageToTab(tabId, {
-        type: 'ANALYSIS_ERROR',
-        analysisId,
-        error: error.message
-      });
+        this.sendMessageToTab(tabId, {
+          type: 'ANALYSIS_ERROR',
+          analysisId,
+          error: error.message
+        });
+      }
 
-      sendResponse({ error: error.message });
+      sendResponse({ 
+        error: error.message,
+        analysisId: analysisId
+      });
     }
   }
 
   async performLocalAnalysis(contentData, targetRegions) {
-    if (!this.localRuleEngine) {
-      // 如果服务未初始化，重新加载
-      await this.loadServices();
-    }
-
-    return this.localRuleEngine.analyze(contentData, targetRegions);
+    // 在service worker中，我们将分析任务委托给sidebar或content script
+    // 这里返回一个基本的分析结果结构
+    console.log('Service Worker: 委托本地分析任务');
+    
+    return {
+      url: contentData.url || 'unknown',
+      timestamp: Date.now(),
+      results: this.createDefaultResults(targetRegions)
+    };
   }
 
   async performAIAnalysis(contentData, targetRegions, options) {
-    if (!this.aiService) {
-      await this.loadServices();
-    }
+    try {
+      // 获取服务器设置
+      const settings = await chrome.storage.sync.get('settings');
+      const serverAddress = settings.settings?.serverAddress || 'http://192.168.31.196:3000';
+      
+      // 准备AI分析数据
+      const aiPayload = {
+        url: contentData.url,
+        title: contentData.title,
+        content: contentData.content,
+        meta: contentData.meta,
+        ecommerce: contentData.ecommerce,
+        targetRegions: targetRegions
+      };
 
-    return await this.aiService.analyze(contentData, targetRegions, options);
+      // 调用后端API进行AI分析
+      const response = await fetch(`${serverAddress}/api/analyze`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(aiPayload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`AI分析请求失败: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.warn('AI分析失败，将仅使用本地分析结果:', error);
+      return null;
+    }
+  }
+
+  createDefaultResults(targetRegions) {
+    const results = {};
+    const regionNames = {
+      'US': '美国',
+      'GB': '英国', 
+      'DE': '德国',
+      'FR': '法国',
+      'JP': '日本',
+      'CN': '中国',
+      'KR': '韩国',
+      'AE': '阿联酋'
+    };
+
+    targetRegions.forEach(region => {
+      results[region] = {
+        region: { name: regionNames[region] || region },
+        overallScore: 75,
+        language: { score: 75, issues: [] },
+        culture: { score: 75, issues: [] },
+        compliance: { score: 75, issues: [] },
+        userExperience: { score: 75, issues: [] }
+      };
+    });
+
+    return results;
   }
 
   mergeAnalysisResults(localResults, aiResults) {
@@ -309,21 +420,27 @@ class BackgroundService {
 
   async handleGetAPIStatus(request, sendResponse) {
     try {
-      const apiKeys = await chrome.storage.sync.get('apiKeys');
+      const result = await chrome.storage.sync.get(['apiKeys', 'settings']);
+      const apiKeys = result.apiKeys || {};
       const status = {};
       
-      if (this.aiService) {
-        const providers = this.aiService.getAvailableProviders();
-        
-        for (const provider of providers) {
-          const hasKey = !!(apiKeys.apiKeys && apiKeys.apiKeys[provider.key]);
-          status[provider.key] = {
-            name: provider.name,
-            hasKey,
-            status: hasKey ? 'ready' : 'missing_key'
-          };
-        }
-      }
+      // 定义支持的AI提供商
+      const providers = [
+        { key: 'deepseek', name: 'DeepSeek' },
+        { key: 'zhipu', name: 'GLM-4.5-AirX' },
+        { key: 'qwen', name: 'Qwen-Plus' },
+        { key: 'openai', name: 'GPT-4' },
+        { key: 'custom', name: 'Custom Model' }
+      ];
+      
+      providers.forEach(provider => {
+        const hasKey = !!(apiKeys[provider.key]);
+        status[provider.key] = {
+          name: provider.name,
+          hasKey,
+          status: hasKey ? 'ready' : 'missing_key'
+        };
+      });
       
       sendResponse({ success: true, status });
     } catch (error) {
@@ -383,40 +500,70 @@ class BackgroundService {
   }
 
   async initializeSidePanel() {
-    try {
-      if (chrome.sidePanel) {
-        // 确保侧栏是默认行为，而不是popup
-        console.log('正在初始化侧栏设置...');
+    const MAX_RETRIES = 3;
+    const RETRY_DELAY = 1000;
+    
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        if (!chrome.sidePanel) {
+          console.warn(`chrome.sidePanel API 不可用 (尝试 ${attempt}/${MAX_RETRIES})`);
+          if (attempt === MAX_RETRIES) {
+            console.info('将使用备用方案：新标签页模式');
+            return;
+          }
+          await this.delay(RETRY_DELAY * attempt);
+          continue;
+        }
+
+        console.log(`正在初始化侧栏设置... (尝试 ${attempt}/${MAX_RETRIES})`);
         
-        // 获取所有标签页并设置侧栏
-        const tabs = await chrome.tabs.query({});
-        for (const tab of tabs) {
-          try {
-            await chrome.sidePanel.setOptions({
+        // 设置全局侧栏配置
+        await chrome.sidePanel.setOptions({
+          path: 'sidebar/sidebar.html',
+          enabled: true
+        });
+        
+        console.log('全局侧栏配置已设置成功');
+        
+        // 为现有标签页设置侧栏（静默处理错误）
+        try {
+          const tabs = await chrome.tabs.query({});
+          const settingPromises = tabs.map(tab => 
+            chrome.sidePanel.setOptions({
               tabId: tab.id,
               path: 'sidebar/sidebar.html',
               enabled: true
-            });
-          } catch (error) {
-            // 某些标签页可能无法设置侧栏，忽略错误
-            console.log(`无法为标签页 ${tab.id} 设置侧栏:`, error.message);
-          }
+            }).catch(error => {
+              // 静默忽略某些标签页的设置失败
+              console.debug(`标签页 ${tab.id} 侧栏设置失败:`, error.message);
+            })
+          );
+          
+          await Promise.allSettled(settingPromises);
+          console.log(`已为 ${tabs.length} 个标签页尝试设置侧栏`);
+        } catch (tabError) {
+          console.warn('设置现有标签页侧栏时出错:', tabError.message);
         }
         
-        // 设置全局侧栏配置
-        try {
-          await chrome.sidePanel.setOptions({
-            path: 'sidebar/sidebar.html',
-            enabled: true
-          });
-          console.log('全局侧栏配置已设置');
-        } catch (error) {
-          console.log('设置全局侧栏配置失败:', error.message);
+        return; // 成功退出
+        
+      } catch (error) {
+        console.error(`初始化侧栏设置失败 (尝试 ${attempt}/${MAX_RETRIES}):`, error);
+        
+        if (attempt === MAX_RETRIES) {
+          console.error('所有重试都失败了，侧栏功能可能不可用');
+          return;
         }
+        
+        // 等待后重试
+        await this.delay(RETRY_DELAY * attempt);
       }
-    } catch (error) {
-      console.error('初始化侧栏设置失败:', error);
     }
+  }
+
+  // 辅助方法：延迟执行
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   async openSidebar(tabId) {

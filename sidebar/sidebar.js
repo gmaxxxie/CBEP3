@@ -14,23 +14,9 @@ class SidebarController {
       this.isAnalyzing = false;
       this.currentTab = 'analyzer';
       
-      // 检查 AnalysisCache 是否可用
-      if (typeof AnalysisCache !== 'undefined') {
-        this.cache = new AnalysisCache();
-        console.log('AnalysisCache 初始化成功');
-      } else {
-        console.warn('AnalysisCache 未定义，缓存功能将不可用');
-        this.cache = null;
-      }
-      
-      // 检查 ReportGenerator 是否可用
-      if (typeof ReportGenerator !== 'undefined') {
-        this.reportGenerator = new ReportGenerator();
-        console.log('ReportGenerator 初始化成功');
-      } else {
-        console.warn('ReportGenerator 未定义，报告生成功能将不可用');
-        this.reportGenerator = null;
-      }
+      // 延迟加载缓存和报告生成器
+      this.cache = null;
+      this.reportGenerator = null;
       
       this.initializeElements();
       this.attachEventListeners();
@@ -44,6 +30,22 @@ class SidebarController {
       console.error('SidebarController 初始化失败:', error);
       this.handleInitError(error);
     }
+  }
+
+  async initializeCacheIfNeeded() {
+    if (!this.cache && typeof AnalysisCache !== 'undefined') {
+      this.cache = new AnalysisCache();
+      console.log('AnalysisCache 延迟加载成功');
+    }
+    return this.cache;
+  }
+
+  async initializeReportGeneratorIfNeeded() {
+    if (!this.reportGenerator && typeof ReportGenerator !== 'undefined') {
+      this.reportGenerator = new ReportGenerator();
+      console.log('ReportGenerator 延迟加载成功');
+    }
+    return this.reportGenerator;
   }
 
   handleInitError(error) {
@@ -336,9 +338,10 @@ class SidebarController {
       const cacheEnabled = settingsResult.settings?.enableCache !== false;
 
       // 检查缓存（如果缓存可用）
-      if (this.cache && cacheEnabled) {
+      const cache = await this.initializeCacheIfNeeded();
+      if (cache && cacheEnabled) {
         this.updateProgress(5, '检查缓存中...', 'extract');
-        const cachedResult = await this.cache.getCachedResult(tab.url, Array.from(this.selectedRegions));
+        const cachedResult = await cache.getCachedResult(tab.url, Array.from(this.selectedRegions));
         
         if (cachedResult) {
           this.updateProgress(100, '从缓存中加载结果', 'report');
@@ -382,8 +385,8 @@ class SidebarController {
       const finalResults = this.mergeResults(localResults, aiResults);
 
       // 保存到缓存（如果启用且缓存可用）
-      if (this.cache && cacheEnabled) {
-        await this.cache.setCachedResult(tab.url, Array.from(this.selectedRegions), finalResults);
+      if (cache && cacheEnabled) {
+        await cache.setCachedResult(tab.url, Array.from(this.selectedRegions), finalResults);
       }
 
       this.updateProgress(100, '分析完成！', 'report');
@@ -639,9 +642,10 @@ class SidebarController {
   }
 
   async clearCache() {
-    if (this.cache) {
+    const cache = await this.initializeCacheIfNeeded();
+    if (cache) {
       try {
-        const success = await this.cache.clearAllCache();
+        const success = await cache.clearAllCache();
         if (success) {
           this.showMessage('缓存已清空', 'success');
         } else {
@@ -662,9 +666,10 @@ class SidebarController {
       return;
     }
 
-    if (this.reportGenerator) {
+    const reportGenerator = await this.initializeReportGeneratorIfNeeded();
+    if (reportGenerator) {
       try {
-        const htmlReport = await this.reportGenerator.generateReport(this.currentResults, 'html');
+        const htmlReport = await reportGenerator.generateReport(this.currentResults, 'html');
         this.downloadFile(htmlReport, `analysis-report-${Date.now()}.html`, 'text/html');
         this.showMessage('报告已导出', 'success');
       } catch (error) {

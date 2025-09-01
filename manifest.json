@@ -58,12 +58,13 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "assets/*", 
-        "data/*",
-        "src/data/*",
-        "src/services/*",
-        "src/utils/*",
-        "src/rules/*"
+        "assets/icons/*",
+        "src/data/region-data.json",
+        "src/data/rule-configs.json",
+        "src/services/ai-service.js",
+        "src/utils/analysis-cache.js",
+        "src/utils/report-generator.js",
+        "src/rules/rule-engine.js"
       ],
       "matches": ["<all_urls>"]
     }

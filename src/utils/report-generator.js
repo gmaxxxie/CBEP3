@@ -512,6 +512,11 @@ class ReportGenerator {
     `;
   }
 
+  // PDF模板 (与HTML模板相同，PDF生成时会进行格式转换)
+  getPDFTemplate() {
+    return this.getHTMLTemplate(); // 复用HTML模板
+  }
+
   // 辅助方法
   getCategoryName(categoryKey) {
     const names = {

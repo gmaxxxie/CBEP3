@@ -162,13 +162,62 @@
         </div>
       </div>
 
+      <!-- 缓存设置 -->
+      <div class="settings-section">
+        <h3>缓存设置</h3>
+        
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="enableCache" checked>
+            <span class="checkmark"></span>
+            启用分析结果缓存
+          </label>
+          <p class="setting-desc">缓存分析结果以提高性能，避免重复分析相同页面</p>
+        </div>
+
+        <div class="setting-item">
+          <label for="cacheExpiry">缓存过期时间 (小时):</label>
+          <input type="number" id="cacheExpiry" min="1" max="168" value="24">
+          <p class="setting-desc">设置缓存结果的有效时间（1-168小时）</p>
+        </div>
+
+        <div class="setting-item">
+          <label for="maxCacheSize">最大缓存条目数:</label>
+          <input type="number" id="maxCacheSize" min="10" max="200" value="50">
+          <p class="setting-desc">设置最多保存的分析结果数量</p>
+        </div>
+
+        <div class="cache-stats" id="cacheStats">
+          <h4>缓存统计</h4>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">缓存条目</span>
+              <span class="stat-value" id="cacheEntries">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">占用空间</span>
+              <span class="stat-value" id="cacheSize">0 KB</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">过期条目</span>
+              <span class="stat-value" id="expiredEntries">0</span>
+            </div>
+          </div>
+          <div class="cache-actions">
+            <button class="btn btn-outline" id="cleanupCache">清理过期缓存</button>
+            <button class="btn btn-outline" id="clearAllCache">清空所有缓存</button>
+            <button class="btn btn-outline" id="refreshCacheStats">刷新统计</button>
+          </div>
+        </div>
+      </div>
+
       <!-- 高级设置 -->
       <div class="settings-section">
         <h3>高级设置</h3>
         
         <div class="setting-item">
           <label for="serverAddress">后端服务器地址:</label>
-          <input type="text" id="serverAddress" value="http://192.168.31.169:3000" placeholder="http://192.168.31.169:3000">
+          <input type="text" id="serverAddress" value="http://192.168.31.196:3000" placeholder="http://192.168.31.196:3000">
           <p class="setting-desc">配置后端API服务器的地址</p>
         </div>
         
@@ -286,6 +335,7 @@
     </div>
   </div>
 
+  <script src="../src/utils/analysis-cache.js"></script>
   <script src="options.js"></script>
 </body>
 </html>

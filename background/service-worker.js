@@ -331,6 +331,12 @@ class BackgroundService {
   setupContextMenus() {
     chrome.contextMenus.removeAll(() => {
       chrome.contextMenus.create({
+        id: 'open-sidebar',
+        title: '打开分析侧栏',
+        contexts: ['page']
+      });
+      
+      chrome.contextMenus.create({
         id: 'analyze-page',
         title: '分析页面地域适配性',
         contexts: ['page']
@@ -344,14 +350,50 @@ class BackgroundService {
     });
 
     chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-      if (info.menuItemId === 'analyze-page') {
-        // 触发页面分析
-        chrome.action.openPopup();
+      if (info.menuItemId === 'open-sidebar') {
+        // 打开侧栏
+        await this.openSidebar(tab.id);
+      } else if (info.menuItemId === 'analyze-page') {
+        // 打开侧栏并开始分析
+        await this.openSidebarAndAnalyze(tab.id);
       } else if (info.menuItemId === 'analyze-selection') {
         // 分析选中内容
         this.analyzeSelection(info, tab);
       }
     });
+
+    // 处理扩展图标点击 - 打开侧栏而不是popup
+    chrome.action.onClicked.addListener(async (tab) => {
+      await this.openSidebar(tab.id);
+    });
+  }
+
+  async openSidebar(tabId) {
+    try {
+      await chrome.sidePanel.open({ tabId });
+      console.log('侧栏已打开');
+    } catch (error) {
+      console.error('打开侧栏失败:', error);
+      // 回退到打开新标签页
+      chrome.tabs.create({
+        url: chrome.runtime.getURL('sidebar/sidebar.html')
+      });
+    }
+  }
+
+  async openSidebarAndAnalyze(tabId) {
+    try {
+      await this.openSidebar(tabId);
+      // 等待侧栏加载后发送分析消息
+      setTimeout(() => {
+        chrome.runtime.sendMessage({
+          type: 'START_AUTO_ANALYSIS',
+          tabId: tabId
+        });
+      }, 1000);
+    } catch (error) {
+      console.error('打开侧栏并分析失败:', error);
+    }
   }
 
   async analyzeSelection(info, tab) {

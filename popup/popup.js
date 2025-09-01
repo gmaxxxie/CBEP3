@@ -1,19 +1,61 @@
 // Popup交互脚本
 class PopupController {
   constructor() {
-    this.selectedRegions = new Set(['US']);
-    this.analysisOptions = {
-      enableLocal: true,
-      enableAI: true,
-      enablePerformance: false
-    };
-    this.currentResults = null;
-    this.isAnalyzing = false;
+    try {
+      console.log('PopupController 初始化开始...');
+      
+      this.selectedRegions = new Set(['US']);
+      this.analysisOptions = {
+        enableLocal: true,
+        enableAI: true,
+        enablePerformance: false
+      };
+      this.currentResults = null;
+      this.isAnalyzing = false;
+      
+      // 检查 AnalysisCache 是否可用
+      if (typeof AnalysisCache !== 'undefined') {
+        this.cache = new AnalysisCache();
+        console.log('AnalysisCache 初始化成功');
+      } else {
+        console.warn('AnalysisCache 未定义，缓存功能将不可用');
+        this.cache = null;
+      }
+      
+      this.initializeElements();
+      this.attachEventListeners();
+      this.loadSettings();
+      this.updateUI();
+      
+      console.log('PopupController 初始化完成');
+    } catch (error) {
+      console.error('PopupController 初始化失败:', error);
+      this.handleInitError(error);
+    }
+  }
+
+  handleInitError(error) {
+    // 创建错误显示
+    const errorDiv = document.createElement('div');
+    errorDiv.style.cssText = `
+      color: red;
+      padding: 10px;
+      background: #ffebee;
+      border: 1px solid #f44336;
+      border-radius: 4px;
+      margin: 10px;
+      font-size: 12px;
+    `;
+    errorDiv.innerHTML = `
+      <strong>初始化错误:</strong><br>
+      ${error.message}<br>
+      <small>请检查浏览器控制台获取详细信息</small>
+    `;
     
-    this.initializeElements();
-    this.attachEventListeners();
-    this.loadSettings();
-    this.updateUI();
+    const container = document.querySelector('.popup-container');
+    if (container) {
+      container.insertBefore(errorDiv, container.firstChild);
+    }
   }
 
   initializeElements() {
@@ -165,7 +207,27 @@ class PopupController {
         throw new Error('无法获取当前页面信息');
       }
 
-      // 更新进度
+      // 获取缓存设置
+      const settingsResult = await chrome.storage.sync.get('settings');
+      const cacheEnabled = settingsResult.settings?.enableCache !== false;
+
+      // 检查缓存（如果缓存可用）
+      if (this.cache && cacheEnabled) {
+        this.updateProgress(5, '检查缓存中...');
+        const cachedResult = await this.cache.getCachedResult(tab.url, Array.from(this.selectedRegions));
+        
+        if (cachedResult) {
+          this.updateProgress(100, '从缓存中加载结果');
+          console.log('使用缓存结果:', cachedResult);
+          
+          setTimeout(() => {
+            this.handleAnalysisComplete(cachedResult);
+          }, 500);
+          return;
+        }
+      }
+
+      // 缓存未命中，执行完整分析
       this.updateProgress(10, '正在提取页面内容...');
 
       // 向content script发送消息提取内容
@@ -195,6 +257,12 @@ class PopupController {
       // 合并结果
       const finalResults = this.mergeResults(localResults, aiResults);
 
+      // 保存到缓存（如果启用且缓存可用）
+      if (this.cache && cacheEnabled) {
+        this.updateProgress(95, '保存分析结果...');
+        await this.cache.setCachedResult(tab.url, Array.from(this.selectedRegions), finalResults);
+      }
+
       this.updateProgress(100, '分析完成！');
 
       setTimeout(() => {
@@ -208,20 +276,52 @@ class PopupController {
   }
 
   async performLocalAnalysis(contentData) {
-    // 加载本地规则引擎
-    const ruleEngine = new LocalRuleEngine();
-    
-    // 执行分析
-    const results = ruleEngine.analyze(contentData, Array.from(this.selectedRegions));
-    
-    return results;
+    try {
+      // 检查LocalRuleEngine是否可用
+      if (typeof LocalRuleEngine === 'undefined') {
+        console.warn('LocalRuleEngine 未定义，使用默认分析结果');
+        return this.getDefaultAnalysisResult();
+      }
+
+      // 加载本地规则引擎
+      const ruleEngine = new LocalRuleEngine();
+      
+      // 执行分析
+      const results = ruleEngine.analyze(contentData, Array.from(this.selectedRegions));
+      
+      return results;
+    } catch (error) {
+      console.error('本地分析失败:', error);
+      return this.getDefaultAnalysisResult();
+    }
+  }
+
+  getDefaultAnalysisResult() {
+    // 返回默认的分析结果结构
+    const defaultResult = {};
+    Array.from(this.selectedRegions).forEach(region => {
+      defaultResult[region] = {
+        region: { name: region },
+        overallScore: 70,
+        language: { score: 70, issues: ['本地分析引擎不可用'] },
+        culture: { score: 70, issues: [] },
+        compliance: { score: 70, issues: [] },
+        userExperience: { score: 70, issues: [] }
+      };
+    });
+
+    return {
+      url: window.location?.href || 'unknown',
+      timestamp: Date.now(),
+      results: defaultResult
+    };
   }
 
   async performAIAnalysis(contentData) {
     try {
       // Get server address from settings
       const result = await chrome.storage.sync.get('settings');
-      const serverAddress = result.settings?.serverAddress || 'http://192.168.31.169:3000';
+      const serverAddress = result.settings?.serverAddress || 'http://192.168.31.196:3000';
       
       // 准备AI分析数据（增强版）
       const aiPayload = {
@@ -518,11 +618,41 @@ class PopupController {
   showDetailedResults() {
     if (!this.currentResults) return;
     
-    // 打开详细结果页面
-    chrome.tabs.create({
-      url: chrome.runtime.getURL('options/options.html') + '?results=' + 
-           encodeURIComponent(JSON.stringify(this.currentResults))
-    });
+    // 存储分析结果到session storage和chrome storage
+    try {
+      const resultsData = JSON.stringify(this.currentResults);
+      sessionStorage.setItem('analysisResults', resultsData);
+      
+      // 同时保存到chrome storage作为备份
+      chrome.storage.session.set({ 'latestAnalysis': this.currentResults });
+      
+      // 打开详细结果页面
+      chrome.tabs.create({
+        url: chrome.runtime.getURL('detailed-results.html')
+      });
+    } catch (error) {
+      console.error('保存分析结果失败:', error);
+      // 回退到URL参数方式（如果数据不太大）
+      try {
+        const compactResults = this.createCompactResults(this.currentResults);
+        chrome.tabs.create({
+          url: chrome.runtime.getURL('detailed-results.html') + '?results=' + 
+               encodeURIComponent(JSON.stringify(compactResults))
+        });
+      } catch (urlError) {
+        console.error('URL参数方式也失败:', urlError);
+        alert('无法打开详细结果页面，请重新分析');
+      }
+    }
+  }
+
+  // 创建紧凑的结果数据用于URL传递
+  createCompactResults(fullResults) {
+    return {
+      url: fullResults.url,
+      timestamp: fullResults.timestamp,
+      results: fullResults.results
+    };
   }
 
   openSettings() {
@@ -600,5 +730,28 @@ class PopupController {
 
 // 初始化popup控制器
 document.addEventListener('DOMContentLoaded', () => {
-  new PopupController();
+  try {
+    console.log('DOM 内容加载完成，初始化 PopupController...');
+    new PopupController();
+  } catch (error) {
+    console.error('PopupController 创建失败:', error);
+    
+    // 显示错误信息给用户
+    const container = document.querySelector('.popup-container');
+    if (container) {
+      const errorDiv = document.createElement('div');
+      errorDiv.style.cssText = `
+        color: white;
+        background: #f44336;
+        padding: 15px;
+        margin: 10px;
+        border-radius: 4px;
+        text-align: center;
+        font-weight: bold;
+      `;
+      errorDiv.textContent = '扩展初始化失败，请刷新页面重试';
+      container.innerHTML = '';
+      container.appendChild(errorDiv);
+    }
+  }
 });

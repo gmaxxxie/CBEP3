@@ -10,7 +10,8 @@
     "activeTab",
     "storage",
     "scripting",
-    "tabs"
+    "tabs",
+    "sidePanel"
   ],
   
   "host_permissions": [
@@ -32,7 +33,6 @@
   ],
   
   "action": {
-    "default_popup": "popup/popup.html",
     "default_title": "地域适配分析器",
     "default_icon": {
       "16": "assets/icons/icon-16.png",
@@ -40,6 +40,10 @@
       "48": "assets/icons/icon-48.png",
       "128": "assets/icons/icon-128.png"
     }
+  },
+  
+  "side_panel": {
+    "default_path": "sidebar/sidebar.html"
   },
   
   "options_page": "options/options.html",
@@ -58,7 +62,8 @@
         "data/*",
         "src/data/*",
         "src/services/*",
-        "src/utils/*"
+        "src/utils/*",
+        "src/rules/*"
       ],
       "matches": ["<all_urls>"]
     }

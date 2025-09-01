@@ -52,9 +52,24 @@ class OptionsController {
     this.maxRetries = document.getElementById('maxRetries');
     this.serverAddress = document.getElementById('serverAddress');
     
+    // Cache settings
+    this.enableCache = document.getElementById('enableCache');
+    this.cacheExpiry = document.getElementById('cacheExpiry');
+    this.maxCacheSize = document.getElementById('maxCacheSize');
+    
+    // Cache statistics elements
+    this.cacheEntries = document.getElementById('cacheEntries');
+    this.cacheSize = document.getElementById('cacheSize');
+    this.expiredEntries = document.getElementById('expiredEntries');
+    
     // Action buttons
     this.saveSettingsBtn = document.getElementById('saveSettings');
     this.resetSettingsBtn = document.getElementById('resetSettings');
+    
+    // Cache action buttons
+    this.cleanupCacheBtn = document.getElementById('cleanupCache');
+    this.clearAllCacheBtn = document.getElementById('clearAllCache');
+    this.refreshCacheStatsBtn = document.getElementById('refreshCacheStats');
     
     // Export buttons
     this.exportHTML = document.getElementById('exportHTML');
@@ -69,6 +84,9 @@ class OptionsController {
     
     // Results container
     this.detailedResults = document.getElementById('detailedResults');
+    
+    // Initialize cache manager
+    this.cache = new AnalysisCache();
     
     console.log('All elements initialized');
   }
@@ -96,6 +114,11 @@ class OptionsController {
     // Settings save/reset
     this.saveSettingsBtn.addEventListener('click', () => this.saveSettings());
     this.resetSettingsBtn.addEventListener('click', () => this.resetSettings());
+
+    // Cache action buttons
+    this.cleanupCacheBtn.addEventListener('click', () => this.cleanupCache());
+    this.clearAllCacheBtn.addEventListener('click', () => this.clearAllCache());
+    this.refreshCacheStatsBtn.addEventListener('click', () => this.loadCacheStats());
 
     // Export buttons
     this.exportHTML.addEventListener('click', () => this.exportResults('html'));
@@ -162,14 +185,22 @@ class OptionsController {
         this.saveHistory.checked = result.settings.saveHistory !== false;
         this.analysisTimeout.value = result.settings.analysisTimeout || 120;
         this.maxRetries.value = result.settings.maxRetries || 3;
-        this.serverAddress.value = result.settings.serverAddress || 'http://192.168.31.169:3000';
-        this.defaultProvider.value = result.settings.defaultProvider || 'deepseek';
+        this.serverAddress.value = result.settings.serverAddress || 'http://192.168.31.196:3000';
+        this.defaultProvider.value = result.settings.defaultProvider || 'zhipu';
+        
+        // Load cache settings
+        this.enableCache.checked = result.settings.enableCache !== false;
+        this.cacheExpiry.value = result.settings.cacheExpiry || 24;
+        this.maxCacheSize.value = result.settings.maxCacheSize || 50;
       }
 
       // Load analysis history for dashboard
       if (result.analysisHistory) {
         this.updateDashboardStats(result.analysisHistory);
       }
+      
+      // Load cache statistics
+      this.loadCacheStats();
 
     } catch (error) {
       console.error('Failed to load settings:', error);
@@ -186,7 +217,11 @@ class OptionsController {
         analysisTimeout: parseInt(this.analysisTimeout.value),
         maxRetries: parseInt(this.maxRetries.value),
         serverAddress: this.serverAddress.value,
-        defaultProvider: this.defaultProvider.value
+        defaultProvider: this.defaultProvider.value,
+        // Cache settings
+        enableCache: this.enableCache.checked,
+        cacheExpiry: parseInt(this.cacheExpiry.value),
+        maxCacheSize: parseInt(this.maxCacheSize.value)
       };
 
       // Collect API keys (only save non-placeholder values)
@@ -240,7 +275,7 @@ class OptionsController {
     try {
       // Get server address from settings
       const settingsResult = await chrome.storage.sync.get('settings');
-      const serverAddress = settingsResult.settings?.serverAddress || 'http://192.168.31.169:3000';
+      const serverAddress = settingsResult.settings?.serverAddress || 'http://192.168.31.196:3000';
       
       // Try to test API connection via backend
       const response = await fetch(`${serverAddress}/api/test-connection`, {
@@ -309,7 +344,7 @@ class OptionsController {
   async checkAIServiceStatus() {
     try {
       const settingsResult = await chrome.storage.sync.get('settings');
-      const serverAddress = settingsResult.settings?.serverAddress || 'http://192.168.31.169:3000';
+      const serverAddress = settingsResult.settings?.serverAddress || 'http://192.168.31.196:3000';
       const response = await fetch(`${serverAddress}/api/status`);
       const status = await response.json();
       
@@ -616,6 +651,48 @@ class OptionsController {
     setTimeout(() => {
       message.remove();
     }, 3000);
+  }
+
+  // Cache management methods
+  async loadCacheStats() {
+    try {
+      const stats = await this.cache.getCacheStats();
+      if (stats) {
+        this.cacheEntries.textContent = stats.totalEntries;
+        this.cacheSize.textContent = stats.totalSizeFormatted;
+        this.expiredEntries.textContent = stats.expiredEntries;
+      }
+    } catch (error) {
+      console.error('Failed to load cache stats:', error);
+    }
+  }
+
+  async cleanupCache() {
+    try {
+      const cleanedCount = await this.cache.cleanupExpiredCache();
+      this.showMessage(`已清理 ${cleanedCount} 个过期缓存条目`, 'success');
+      this.loadCacheStats(); // Refresh stats
+    } catch (error) {
+      console.error('Failed to cleanup cache:', error);
+      this.showMessage('清理缓存失败', 'error');
+    }
+  }
+
+  async clearAllCache() {
+    if (confirm('确定要清空所有缓存吗？此操作不可恢复。')) {
+      try {
+        const success = await this.cache.clearAllCache();
+        if (success) {
+          this.showMessage('所有缓存已清空', 'success');
+          this.loadCacheStats(); // Refresh stats
+        } else {
+          this.showMessage('清空缓存失败', 'error');
+        }
+      } catch (error) {
+        console.error('Failed to clear cache:', error);
+        this.showMessage('清空缓存失败', 'error');
+      }
+    }
   }
 }
 

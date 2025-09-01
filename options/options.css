@@ -295,6 +295,45 @@ body {
   color: white;
 }
 
+/* 自定义模型样式 */
+.custom-model-card {
+  border-color: #8b5cf6;
+  background: linear-gradient(135deg, #f8fafc 0%, #faf5ff 100%);
+}
+
+.custom-model-fields {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
 .provider-selection {
   margin-top: 20px;
   padding-top: 20px;

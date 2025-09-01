@@ -31,14 +31,25 @@ class OptionsController {
       deepseek: document.getElementById('deepseekKey'),
       zhipu: document.getElementById('zhipuKey'),
       qwen: document.getElementById('qwenKey'),
-      openai: document.getElementById('openaiKey')
+      openai: document.getElementById('openaiKey'),
+      custom: document.getElementById('customApiKey')
     };
     
     this.providerStatusElements = {
       deepseek: document.getElementById('deepseekStatus'),
       zhipu: document.getElementById('zhipuStatus'),
       qwen: document.getElementById('qwenStatus'),
-      openai: document.getElementById('openaiStatus')
+      openai: document.getElementById('openaiStatus'),
+      custom: document.getElementById('customStatus')
+    };
+    
+    // 自定义模型字段
+    this.customModelInputs = {
+      name: document.getElementById('customModelName'),
+      apiUrl: document.getElementById('customApiUrl'),
+      model: document.getElementById('customModel'),
+      maxTokens: document.getElementById('customMaxTokens'),
+      apiKey: document.getElementById('customApiKey')
     };
     
     this.testButtons = document.querySelectorAll('.btn-test');
@@ -164,7 +175,7 @@ class OptionsController {
 
   async loadSettings() {
     try {
-      const result = await chrome.storage.sync.get(['apiKeys', 'settings', 'analysisHistory']);
+      const result = await chrome.storage.sync.get(['apiKeys', 'settings', 'analysisHistory', 'customModelConfig']);
       
       // Load API keys
       if (result.apiKeys) {
@@ -175,6 +186,22 @@ class OptionsController {
             this.providerStatusElements[provider].className = 'provider-status configured';
           }
         });
+      }
+
+      // Load custom model configuration
+      if (result.customModelConfig) {
+        const config = result.customModelConfig;
+        this.customModelInputs.name.value = config.name || '';
+        this.customModelInputs.apiUrl.value = config.apiUrl || '';
+        this.customModelInputs.model.value = config.model || '';
+        this.customModelInputs.maxTokens.value = config.maxTokens || 4000;
+        
+        // If custom model is configured, show configured status
+        if (config.name && config.apiUrl && config.model && result.apiKeys?.custom) {
+          this.customModelInputs.apiKey.value = '••••••••••••••••';
+          this.providerStatusElements.custom.textContent = '已配置';
+          this.providerStatusElements.custom.className = 'provider-status configured';
+        }
       }
 
       // Load general settings
@@ -262,6 +289,11 @@ class OptionsController {
     const status = this.providerStatusElements[provider];
     const button = document.querySelector(`[data-provider="${provider}"]`);
     
+    // 处理自定义模型的特殊情况
+    if (provider === 'custom') {
+      return this.testCustomModel();
+    }
+    
     if (!input.value || input.value.includes('•')) {
       this.showMessage('请先输入API密钥', 'error');
       return;
@@ -331,6 +363,114 @@ class OptionsController {
       button.disabled = false;
       button.textContent = '测试连接';
     }
+  }
+
+  async testCustomModel() {
+    const status = this.providerStatusElements.custom;
+    const button = document.querySelector('[data-provider="custom"]');
+    
+    // 验证自定义模型配置
+    const config = {
+      name: this.customModelInputs.name.value,
+      apiUrl: this.customModelInputs.apiUrl.value,
+      model: this.customModelInputs.model.value,
+      maxTokens: parseInt(this.customModelInputs.maxTokens.value) || 4000,
+      apiKey: this.customModelInputs.apiKey.value
+    };
+    
+    // 检查必填字段
+    if (!config.name || !config.apiUrl || !config.model || !config.apiKey) {
+      this.showMessage('请填写所有自定义模型字段', 'error');
+      return;
+    }
+    
+    // 验证URL格式
+    try {
+      new URL(config.apiUrl);
+    } catch (e) {
+      this.showMessage('API地址格式不正确', 'error');
+      return;
+    }
+    
+    button.disabled = true;
+    button.textContent = '测试中...';
+    status.textContent = '测试中...';
+    status.className = 'provider-status testing';
+
+    try {
+      // Get server address from settings
+      const settingsResult = await chrome.storage.sync.get('settings');
+      const serverAddress = settingsResult.settings?.serverAddress || 'http://192.168.31.196:3000';
+      
+      // Test custom model connection via backend
+      const response = await fetch(`${serverAddress}/api/test-custom-model`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: config.name,
+          apiUrl: config.apiUrl,
+          model: config.model,
+          maxTokens: config.maxTokens,
+          apiKey: config.apiKey
+        })
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        status.textContent = '连接成功';
+        status.className = 'provider-status configured';
+        this.showMessage(`自定义模型 ${config.name} 连接测试成功`, 'success');
+        
+        // 保存自定义模型配置
+        await this.saveCustomModelConfig(config);
+      } else {
+        status.textContent = '连接失败';
+        status.className = 'provider-status error';
+        this.showMessage(`自定义模型连接测试失败: ${result.error}`, 'error');
+      }
+
+    } catch (error) {
+      console.error('Custom model connection test failed:', error);
+      
+      // Fallback: Save configuration without testing when backend is unavailable
+      status.textContent = '已保存';
+      status.className = 'provider-status configured';
+      this.showMessage('自定义模型配置已保存，后端服务离线时无法测试', 'info');
+      
+      // Save custom model configuration
+      try {
+        await this.saveCustomModelConfig(config);
+      } catch (saveError) {
+        console.error('Failed to save custom model config:', saveError);
+        status.textContent = '保存失败';
+        status.className = 'provider-status error';
+        this.showMessage('自定义模型配置保存失败', 'error');
+      }
+    } finally {
+      button.disabled = false;
+      button.textContent = '测试自定义模型';
+    }
+  }
+
+  async saveCustomModelConfig(config) {
+    // 保存自定义模型配置到Chrome存储
+    await chrome.storage.sync.set({
+      customModelConfig: {
+        name: config.name,
+        apiUrl: config.apiUrl,
+        model: config.model,
+        maxTokens: config.maxTokens
+      }
+    });
+    
+    // 保存API密钥到apiKeys中
+    const storageResult = await chrome.storage.sync.get('apiKeys');
+    const apiKeys = storageResult.apiKeys || {};
+    apiKeys.custom = config.apiKey;
+    await chrome.storage.sync.set({ apiKeys });
   }
 
   loadDashboardData() {

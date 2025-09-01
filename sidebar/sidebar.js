@@ -133,6 +133,7 @@ class SidebarController {
     this.detailedReportsCheckbox = document.getElementById('detailedReports');
     this.enableCacheCheckbox = document.getElementById('enableCache');
     this.serverAddressInput = document.getElementById('serverAddress');
+    this.aiProviderSelect = document.getElementById('aiProvider');
     this.saveSettingsBtn = document.getElementById('saveSettings');
     this.resetSettingsBtn = document.getElementById('resetSettings');
     this.openFullSettingsBtn = document.getElementById('openFullSettings');
@@ -225,6 +226,7 @@ class SidebarController {
     this.detailedReportsCheckbox.addEventListener('change', () => this.saveSettings());
     this.enableCacheCheckbox.addEventListener('change', () => this.saveSettings());
     this.serverAddressInput.addEventListener('change', () => this.saveSettings());
+    this.aiProviderSelect.addEventListener('change', () => this.saveSettings());
 
     // 监听来自background script的消息
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -902,7 +904,8 @@ class SidebarController {
         autoAnalyze: this.autoAnalyzeCheckbox.checked,
         detailedReports: this.detailedReportsCheckbox.checked,
         enableCache: this.enableCacheCheckbox.checked,
-        serverAddress: this.serverAddressInput.value
+        serverAddress: this.serverAddressInput.value,
+        defaultProvider: this.aiProviderSelect.value
       };
       
       await chrome.storage.sync.set({ settings });
@@ -929,6 +932,7 @@ class SidebarController {
         if (this.detailedReportsCheckbox) this.detailedReportsCheckbox.checked = result.settings.detailedReports !== false;
         if (this.enableCacheCheckbox) this.enableCacheCheckbox.checked = result.settings.enableCache !== false;
         if (this.serverAddressInput) this.serverAddressInput.value = result.settings.serverAddress || 'http://192.168.31.196:3000';
+        if (this.aiProviderSelect) this.aiProviderSelect.value = result.settings.defaultProvider || 'zhipu';
         
         this.updateUI();
       }

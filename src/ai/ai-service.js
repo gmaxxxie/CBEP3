@@ -4,10 +4,10 @@ class AIAnalysisService {
     // 主要支持的AI服务商
     this.providers = {
       zhipu: {
-        name: 'GLM-4',
+        name: 'GLM-4.5-AirX',
         apiUrl: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
-        model: 'glm-4',
-        maxTokens: 4000,
+        model: 'glm-4-airx',
+        maxTokens: 8000,
         priority: 1
       },
       deepseek: {
@@ -16,32 +16,43 @@ class AIAnalysisService {
         model: 'deepseek-chat',
         maxTokens: 4000,
         priority: 2
-      }
-    };
-    
-    // 备用服务商（暂时隐藏，可在需要时启用）
-    this.hiddenProviders = {
+      },
       qwen: {
-        name: 'Qwen',
+        name: 'Qwen-Plus',
         apiUrl: 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation',
         model: 'qwen-plus',
-        maxTokens: 4000
+        maxTokens: 6000,
+        priority: 3
       },
       openai: {
         name: 'GPT-4',
         apiUrl: 'https://api.openai.com/v1/chat/completions',
         model: 'gpt-4',
-        maxTokens: 4000
+        maxTokens: 4000,
+        priority: 4
+      },
+      custom: {
+        name: 'Custom Model',
+        apiUrl: '',
+        model: '',
+        maxTokens: 4000,
+        priority: 99
       }
     };
     
-    this.currentProvider = 'zhipu'; // 默认使用智谱GLM-4
+    this.currentProvider = 'zhipu'; // 默认使用智谱GLM-4.5-AirX
     this.retryCount = 3;
     this.timeout = 30000; // 30秒超时
     
     // 集成缓存服务
     this.cacheService = null;
-    this.initializeCacheService();
+    this.initializeServices();
+  }
+  
+  // 初始化所有服务
+  async initializeServices() {
+    await this.initializeCacheService();
+    await this.loadCustomConfig();
   }
   
   // 初始化缓存服务
@@ -365,7 +376,7 @@ ${JSON.stringify(contentData.meta?.basic || {}, null, 2)}
     };
 
     // 根据不同服务商调整请求格式
-    if (provider.name === 'Qwen') {
+    if (provider.name === 'Qwen-Plus') {
       return {
         model: provider.model,
         input: {
@@ -387,11 +398,11 @@ ${JSON.stringify(contentData.meta?.basic || {}, null, 2)}
       'Content-Type': 'application/json'
     };
 
-    if (provider.name === 'DeepSeek' || provider.name === 'GPT-4') {
+    if (provider.name === 'DeepSeek' || provider.name === 'GPT-4' || provider.name === 'Custom Model') {
       headers['Authorization'] = `Bearer ${apiKey}`;
-    } else if (provider.name === 'GLM-4') {
+    } else if (provider.name === 'GLM-4.5-AirX') {
       headers['Authorization'] = `Bearer ${apiKey}`;
-    } else if (provider.name === 'Qwen') {
+    } else if (provider.name === 'Qwen-Plus') {
       headers['Authorization'] = `Bearer ${apiKey}`;
       headers['X-DashScope-SSE'] = 'disable';
     }
@@ -401,7 +412,7 @@ ${JSON.stringify(contentData.meta?.basic || {}, null, 2)}
 
   // 提取响应内容
   extractResponseContent(provider, data) {
-    if (provider.name === 'Qwen') {
+    if (provider.name === 'Qwen-Plus') {
       return data.output?.text || data.output?.choices?.[0]?.message?.content || '';
     }
     
@@ -516,12 +527,49 @@ ${JSON.stringify(contentData.meta?.basic || {}, null, 2)}
   }
 
   // 设置当前服务商
-  setProvider(providerKey) {
-    if (this.providers[providerKey]) {
+  async setProvider(providerKey, customConfig = null) {
+    if (providerKey === 'custom' && customConfig) {
+      // 设置自定义模型配置
+      this.providers.custom = {
+        ...this.providers.custom,
+        ...customConfig
+      };
+      this.currentProvider = 'custom';
+      console.log(`AI服务商切换为自定义模型: ${customConfig.name || customConfig.model}`);
+      
+      // 保存自定义配置到存储
+      await this.saveCustomConfig(customConfig);
+    } else if (this.providers[providerKey]) {
       this.currentProvider = providerKey;
       console.log(`AI服务商切换为: ${this.providers[providerKey].name}`);
     } else {
       console.warn(`不支持的服务商: ${providerKey}`);
+    }
+  }
+
+  // 保存自定义配置
+  async saveCustomConfig(config) {
+    try {
+      await chrome.storage.sync.set({
+        customModelConfig: config
+      });
+    } catch (error) {
+      console.error('保存自定义模型配置失败:', error);
+    }
+  }
+
+  // 加载自定义配置
+  async loadCustomConfig() {
+    try {
+      const result = await chrome.storage.sync.get('customModelConfig');
+      if (result.customModelConfig) {
+        this.providers.custom = {
+          ...this.providers.custom,
+          ...result.customModelConfig
+        };
+      }
+    } catch (error) {
+      console.error('加载自定义模型配置失败:', error);
     }
   }
 
@@ -533,17 +581,6 @@ ${JSON.stringify(contentData.meta?.basic || {}, null, 2)}
       model: this.providers[key].model,
       priority: this.providers[key].priority || 99
     })).sort((a, b) => a.priority - b.priority);
-  }
-
-  // 启用隐藏的服务商（管理员功能）
-  enableHiddenProvider(providerKey) {
-    if (this.hiddenProviders[providerKey]) {
-      this.providers[providerKey] = this.hiddenProviders[providerKey];
-      delete this.hiddenProviders[providerKey];
-      console.log(`已启用服务商: ${this.providers[providerKey].name}`);
-      return true;
-    }
-    return false;
   }
 }
 

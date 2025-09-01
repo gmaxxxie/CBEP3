@@ -332,6 +332,18 @@
           <input type="text" id="serverAddress" value="http://192.168.31.196:3000" placeholder="http://192.168.31.196:3000">
           <p class="setting-desc">配置后端AI分析服务器的地址</p>
         </div>
+        
+        <div class="setting-item">
+          <label for="aiProvider">默认AI模型:</label>
+          <select id="aiProvider">
+            <option value="zhipu">GLM-4.5-AirX (智谱)</option>
+            <option value="deepseek">DeepSeek</option>
+            <option value="qwen">Qwen-Plus</option>
+            <option value="openai">GPT-4</option>
+            <option value="custom">自定义模型</option>
+          </select>
+          <p class="setting-desc">选择默认使用的AI分析服务商</p>
+        </div>
       </section>
 
       <div class="settings-actions">

@@ -1,19 +1,26 @@
 // AI分析服务集成
 class AIAnalysisService {
   constructor() {
+    // 主要支持的AI服务商
     this.providers = {
-      deepseek: {
-        name: 'DeepSeek',
-        apiUrl: 'https://api.deepseek.com/v1/chat/completions',
-        model: 'deepseek-chat',
-        maxTokens: 4000
-      },
       zhipu: {
         name: 'GLM-4',
         apiUrl: 'https://open.bigmodel.cn/api/paas/v4/chat/completions',
         model: 'glm-4',
-        maxTokens: 4000
+        maxTokens: 4000,
+        priority: 1
       },
+      deepseek: {
+        name: 'DeepSeek',
+        apiUrl: 'https://api.deepseek.com/v1/chat/completions',
+        model: 'deepseek-chat',
+        maxTokens: 4000,
+        priority: 2
+      }
+    };
+    
+    // 备用服务商（暂时隐藏，可在需要时启用）
+    this.hiddenProviders = {
       qwen: {
         name: 'Qwen',
         apiUrl: 'https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation',
@@ -28,7 +35,7 @@ class AIAnalysisService {
       }
     };
     
-    this.currentProvider = 'deepseek'; // 默认使用DeepSeek
+    this.currentProvider = 'zhipu'; // 默认使用智谱GLM-4
     this.retryCount = 3;
     this.timeout = 30000; // 30秒超时
     
@@ -480,11 +487,11 @@ ${JSON.stringify(contentData.meta?.basic || {}, null, 2)}
 
   // 获取备用服务商
   getFallbackProvider() {
-    const providers = Object.keys(this.providers);
-    const currentIndex = providers.indexOf(this.currentProvider);
-    
-    if (currentIndex < providers.length - 1) {
-      return providers[currentIndex + 1];
+    // 按优先级顺序尝试备用服务商
+    if (this.currentProvider === 'zhipu' && this.providers['deepseek']) {
+      return 'deepseek';
+    } else if (this.currentProvider === 'deepseek' && this.providers['zhipu']) {
+      return 'zhipu';
     }
     
     return null;
@@ -512,6 +519,9 @@ ${JSON.stringify(contentData.meta?.basic || {}, null, 2)}
   setProvider(providerKey) {
     if (this.providers[providerKey]) {
       this.currentProvider = providerKey;
+      console.log(`AI服务商切换为: ${this.providers[providerKey].name}`);
+    } else {
+      console.warn(`不支持的服务商: ${providerKey}`);
     }
   }
 
@@ -520,8 +530,20 @@ ${JSON.stringify(contentData.meta?.basic || {}, null, 2)}
     return Object.keys(this.providers).map(key => ({
       key,
       name: this.providers[key].name,
-      model: this.providers[key].model
-    }));
+      model: this.providers[key].model,
+      priority: this.providers[key].priority || 99
+    })).sort((a, b) => a.priority - b.priority);
+  }
+
+  // 启用隐藏的服务商（管理员功能）
+  enableHiddenProvider(providerKey) {
+    if (this.hiddenProviders[providerKey]) {
+      this.providers[providerKey] = this.hiddenProviders[providerKey];
+      delete this.hiddenProviders[providerKey];
+      console.log(`已启用服务商: ${this.providers[providerKey].name}`);
+      return true;
+    }
+    return false;
   }
 }
 

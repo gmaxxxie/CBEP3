@@ -1,6 +1,7 @@
 // Service Worker - 后台脚本
 class BackgroundService {
   constructor() {
+    console.log('BackgroundService 开始初始化...');
     this.aiService = null;
     this.localRuleEngine = null;
     this.analysisQueue = new Map();
@@ -8,6 +9,8 @@ class BackgroundService {
     this.initializeServices();
     this.setupMessageHandlers();
     this.setupContextMenus();
+    
+    console.log('BackgroundService 初始化完成');
   }
 
   async initializeServices() {
@@ -329,6 +332,11 @@ class BackgroundService {
   }
 
   setupContextMenus() {
+    console.log('设置上下文菜单和扩展图标点击事件...');
+    
+    // 初始化侧栏设置
+    this.initializeSidePanel();
+    
     chrome.contextMenus.removeAll(() => {
       chrome.contextMenus.create({
         id: 'open-sidebar',
@@ -347,9 +355,12 @@ class BackgroundService {
         title: '分析选中内容适配性',
         contexts: ['selection']
       });
+      
+      console.log('上下文菜单已创建');
     });
 
     chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+      console.log('上下文菜单被点击:', info.menuItemId);
       if (info.menuItemId === 'open-sidebar') {
         // 打开侧栏
         await this.openSidebar(tab.id);
@@ -364,20 +375,86 @@ class BackgroundService {
 
     // 处理扩展图标点击 - 打开侧栏而不是popup
     chrome.action.onClicked.addListener(async (tab) => {
+      console.log('扩展图标被点击，tabId:', tab.id);
       await this.openSidebar(tab.id);
     });
+    
+    console.log('扩展图标点击监听器已设置');
+  }
+
+  async initializeSidePanel() {
+    try {
+      if (chrome.sidePanel) {
+        // 确保侧栏是默认行为，而不是popup
+        console.log('正在初始化侧栏设置...');
+        
+        // 获取所有标签页并设置侧栏
+        const tabs = await chrome.tabs.query({});
+        for (const tab of tabs) {
+          try {
+            await chrome.sidePanel.setOptions({
+              tabId: tab.id,
+              path: 'sidebar/sidebar.html',
+              enabled: true
+            });
+          } catch (error) {
+            // 某些标签页可能无法设置侧栏，忽略错误
+            console.log(`无法为标签页 ${tab.id} 设置侧栏:`, error.message);
+          }
+        }
+        
+        // 设置全局侧栏配置
+        try {
+          await chrome.sidePanel.setOptions({
+            path: 'sidebar/sidebar.html',
+            enabled: true
+          });
+          console.log('全局侧栏配置已设置');
+        } catch (error) {
+          console.log('设置全局侧栏配置失败:', error.message);
+        }
+      }
+    } catch (error) {
+      console.error('初始化侧栏设置失败:', error);
+    }
   }
 
   async openSidebar(tabId) {
     try {
+      console.log('尝试打开侧栏，tabId:', tabId);
+      
+      // 检查 sidePanel API 是否可用
+      if (!chrome.sidePanel) {
+        console.error('chrome.sidePanel API 不可用，可能需要 Chrome 114+');
+        // 回退到打开新标签页
+        chrome.tabs.create({
+          url: chrome.runtime.getURL('sidebar/sidebar.html')
+        });
+        return;
+      }
+      
+      // 尝试打开侧栏
       await chrome.sidePanel.open({ tabId });
-      console.log('侧栏已打开');
+      console.log('侧栏已成功打开');
+      
     } catch (error) {
       console.error('打开侧栏失败:', error);
-      // 回退到打开新标签页
-      chrome.tabs.create({
-        url: chrome.runtime.getURL('sidebar/sidebar.html')
+      console.error('错误详情:', {
+        message: error.message,
+        stack: error.stack,
+        tabId: tabId
       });
+      
+      // 回退方案：打开独立的侧栏页面
+      try {
+        chrome.tabs.create({
+          url: chrome.runtime.getURL('sidebar/sidebar.html'),
+          active: false
+        });
+        console.log('已回退到新标签页打开侧栏');
+      } catch (fallbackError) {
+        console.error('回退方案也失败了:', fallbackError);
+      }
     }
   }
 

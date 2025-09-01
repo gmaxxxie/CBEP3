@@ -1,0 +1,394 @@
+{
+  "config": {
+    "configFile": "/home/max/doc/CBEP3/playwright.config.js",
+    "rootDir": "/home/max/doc/CBEP3/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/max/doc/CBEP3/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chrome-extension",
+        "name": "chrome-extension",
+        "testDir": "/home/max/doc/CBEP3/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "static-verification.test.js",
+      "file": "static-verification.test.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "CBEP3 扩展静态验证测试",
+          "file": "static-verification.test.js",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "验证扩展文件结构",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-extension",
+                  "projectName": "chrome-extension",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 13,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🔍 验证扩展文件结构...\n"
+                        },
+                        {
+                          "text": "✅ manifest.json 存在\n"
+                        },
+                        {
+                          "text": "✅ background/service-worker.js 存在\n"
+                        },
+                        {
+                          "text": "✅ sidebar/sidebar.html 存在\n"
+                        },
+                        {
+                          "text": "✅ sidebar/sidebar.js 存在\n"
+                        },
+                        {
+                          "text": "✅ options/options.html 存在\n"
+                        },
+                        {
+                          "text": "✅ options/options.js 存在\n"
+                        },
+                        {
+                          "text": "✅ src/core-services.js 存在\n"
+                        },
+                        {
+                          "text": "🎉 文件结构验证完成\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-01T15:23:07.456Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0d4d6de6b64e468e74eb-b1c87db068b224827974",
+              "file": "static-verification.test.js",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "验证 manifest.json 配置",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-extension",
+                  "projectName": "chrome-extension",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 6,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "📋 验证 manifest.json 配置...\n"
+                        },
+                        {
+                          "text": "✅ Manifest 配置验证通过\n"
+                        },
+                        {
+                          "text": "📦 扩展名称: 跨境电商地域适配分析器\n"
+                        },
+                        {
+                          "text": "🏷️ 版本: 1.0.0\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-01T15:23:07.489Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0d4d6de6b64e468e74eb-75b3ae40e0223f6b650e",
+              "file": "static-verification.test.js",
+              "line": 29,
+              "column": 3
+            },
+            {
+              "title": "验证 JavaScript 文件语法",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-extension",
+                  "projectName": "chrome-extension",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 8,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🔧 验证 JavaScript 文件语法...\n"
+                        },
+                        {
+                          "text": "✅ background/service-worker.js 语法检查通过\n"
+                        },
+                        {
+                          "text": "✅ sidebar/sidebar.js 语法检查通过\n"
+                        },
+                        {
+                          "text": "✅ options/options.js 语法检查通过\n"
+                        },
+                        {
+                          "text": "✅ src/core-services.js 语法检查通过\n"
+                        },
+                        {
+                          "text": "🎉 JavaScript 文件验证完成\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-01T15:23:07.506Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0d4d6de6b64e468e74eb-5f7be4e6697dbfffc6c1",
+              "file": "static-verification.test.js",
+              "line": 56,
+              "column": 3
+            },
+            {
+              "title": "验证 HTML 页面结构",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-extension",
+                  "projectName": "chrome-extension",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 9,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🌐 验证 HTML 页面结构...\n"
+                        },
+                        {
+                          "text": "✅ sidebar/sidebar.html 结构验证通过\n"
+                        },
+                        {
+                          "text": "✅ options/options.html 结构验证通过\n"
+                        },
+                        {
+                          "text": "🎉 HTML 页面验证完成\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-01T15:23:07.523Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0d4d6de6b64e468e74eb-d54281e4a7d71b546f6e",
+              "file": "static-verification.test.js",
+              "line": 92,
+              "column": 3
+            },
+            {
+              "title": "验证扩展配置完整性",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-extension",
+                  "projectName": "chrome-extension",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "⚙️ 验证扩展配置完整性...\n"
+                        },
+                        {
+                          "text": "✅ run-tests.sh 存在\n"
+                        },
+                        {
+                          "text": "✅ setup-server-testing.sh 存在\n"
+                        },
+                        {
+                          "text": "✅ validate-testing-setup.sh 存在\n"
+                        },
+                        {
+                          "text": "🎉 扩展配置验证完成\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-01T15:23:07.540Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0d4d6de6b64e468e74eb-fa67323ffdb75be8984f",
+              "file": "static-verification.test.js",
+              "line": 123,
+              "column": 3
+            },
+            {
+              "title": "模拟扩展功能逻辑验证",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chrome-extension",
+                  "projectName": "chrome-extension",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 5,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🧠 模拟扩展功能逻辑验证...\n"
+                        },
+                        {
+                          "text": "✅ 模拟总分计算: 83\n"
+                        },
+                        {
+                          "text": "🎉 功能逻辑验证完成\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-01T15:23:07.552Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0d4d6de6b64e468e74eb-7a4680a33790ab2a1cbf",
+              "file": "static-verification.test.js",
+              "line": 150,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-01T15:23:06.862Z",
+    "duration": 724.299,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

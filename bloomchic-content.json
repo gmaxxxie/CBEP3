@@ -1,0 +1,102 @@
+{
+  "url": "https://bloomchic.com/",
+  "title": "BLOOMCHIC | Plus Size Clothing & Fashion for Women | Size 10-30",
+  "text": {
+    "headings": [
+      "BLOOMCHIC",
+      "New Arrivals",
+      "Best Sellers",
+      "Plus Size Fashion",
+      "Summer Collection",
+      "Dresses",
+      "Tops & Blouses",
+      "Bottoms",
+      "Outerwear",
+      "Size Guide"
+    ],
+    "paragraphs": [
+      "Discover the latest plus size fashion trends at BLOOMCHIC. From chic dresses to comfortable everyday wear, we offer stylish clothing for women sizes 10-30.",
+      "Our curated collection features high-quality fabrics and flattering cuts designed specifically for curvy women.",
+      "Free shipping on orders over $79. Easy returns within 30 days.",
+      "Shop our exclusive collection of plus size clothing including maxi dresses, work wear, casual tops, and statement pieces.",
+      "Join thousands of confident women who have found their perfect fit with BLOOMCHIC."
+    ],
+    "buttons": [
+      "Shop Now",
+      "Add to Cart",
+      "Quick View",
+      "Size Guide",
+      "Sign Up",
+      "Subscribe",
+      "My Account",
+      "Wishlist",
+      "Cart",
+      "Checkout",
+      "Continue Shopping",
+      "Apply Coupon"
+    ],
+    "navigation": [
+      "New Arrivals",
+      "Dresses",
+      "Tops",
+      "Bottoms",
+      "Outerwear",
+      "Swimwear",
+      "Sale",
+      "Size Guide",
+      "About Us",
+      "Contact",
+      "FAQ",
+      "Shipping & Returns"
+    ],
+    "forms": [],
+    "footers": []
+  },
+  "meta": {
+    "basic": {
+      "description": "Shop plus size women's clothing at BLOOMCHIC. Trendy styles in sizes 10-30 with free shipping over $79. Discover dresses, tops, bottoms and more.",
+      "keywords": "plus size clothing, women fashion, curvy clothing, sizes 10-30, plus size dresses, trendy fashion"
+    },
+    "openGraph": {
+      "og:title": "BLOOMCHIC - Plus Size Fashion for Confident Women",
+      "og:description": "Stylish plus size clothing for women sizes 10-30. Free shipping on orders over $79.",
+      "og:type": "website",
+      "og:url": "https://bloomchic.com"
+    },
+    "twitter": {
+      "twitter:card": "summary_large_image",
+      "twitter:title": "BLOOMCHIC - Plus Size Fashion",
+      "twitter:description": "Trendy plus size clothing for women sizes 10-30"
+    }
+  },
+  "ecommerce": {
+    "prices": [
+      "$29.99",
+      "$39.99",
+      "$49.99",
+      "$59.99",
+      "$69.99",
+      "$79.99",
+      "$89.99",
+      "$99.99"
+    ],
+    "products": [
+      "Floral Maxi Dress",
+      "Casual Button-Down Shirt",
+      "High-Waist Jeans",
+      "Blazer Jacket",
+      "Summer Tank Top",
+      "A-Line Midi Dress",
+      "Cardigan Sweater",
+      "Wide Leg Pants"
+    ],
+    "categories": [
+      "Dresses",
+      "Tops & Blouses",
+      "Bottoms",
+      "Outerwear",
+      "Swimwear"
+    ],
+    "checkout": {}
+  }
+}

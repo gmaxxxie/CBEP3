@@ -1,6 +1,6 @@
 {
   "name": "cbep3-localization-analyzer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Chrome extension for cross-border e-commerce content localization analysis",
   "scripts": {
     "build": "webpack --mode=production",

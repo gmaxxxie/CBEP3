@@ -1,0 +1,9 @@
+<!-- Simple SVG icon for the Chrome extension -->
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="16" height="16" rx="2" fill="#667eea"/>
+  <path d="M4 6h8v1H4V6z" fill="white"/>
+  <path d="M4 8h6v1H4V8z" fill="white"/>
+  <path d="M4 10h8v1H4v-1z" fill="white"/>
+  <circle cx="12" cy="4" r="2" fill="#f093fb"/>
+  <text x="12" y="6" font-family="Arial" font-size="2" fill="white" text-anchor="middle">A</text>
+</svg>

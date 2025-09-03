@@ -1,0 +1,11 @@
+{
+  "_meta": {
+    "version": 1,
+    "generated_at": "2025-08-25T10:07:39.385Z",
+    "published_at": "2025-08-25T10:07:39.385Z",
+    "source": "vatcomply.com"
+  },
+  "data": {
+    "error": "SyntaxError: Unexpected token '<', \"\n<!doctype \"... is not valid JSON"
+  }
+}

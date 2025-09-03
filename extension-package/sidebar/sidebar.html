@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>地域适配分析器</title>
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <div class="sidebar-container">
+    <!-- 头部 -->
+    <header class="sidebar-header">
+      <div class="logo-section">
+        <img src="../assets/icons/icon-32.png" alt="Logo" class="logo-img">
+        <div class="title-section">
+          <h1 class="main-title">地域适配分析器</h1>
+          <div class="status-indicator" id="status">
+            <span class="status-dot" id="statusDot"></span>
+            <span class="status-text" id="statusText">准备就绪</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 导航标签 -->
+    <nav class="sidebar-nav">
+      <button class="nav-tab active" data-tab="analyzer">分析器</button>
+      <button class="nav-tab" data-tab="results">详细结果</button>
+      <button class="nav-tab" data-tab="history">历史记录</button>
+      <button class="nav-tab" data-tab="settings">设置</button>
+    </nav>
+
+    <!-- 分析器页面 -->
+    <div id="analyzer" class="tab-content active">
+      <!-- 当前页面信息 -->
+      <section class="current-page-info">
+        <h3>当前页面</h3>
+        <div class="page-info-card" id="currentPageInfo">
+          <div class="page-url" id="currentUrl">正在获取页面信息...</div>
+          <div class="page-title" id="currentTitle"></div>
+          <div class="page-domain" id="currentDomain"></div>
+        </div>
+      </section>
+
+      <!-- 地区选择 -->
+      <section class="region-selection">
+        <h3>目标市场选择</h3>
+        <div class="region-grid" id="regionGrid">
+          <div class="region-item" data-region="US">
+            <div class="region-flag">🇺🇸</div>
+            <div class="region-info">
+              <div class="region-name">美国</div>
+              <div class="region-lang">English</div>
+            </div>
+            <div class="selection-indicator"></div>
+          </div>
+          <div class="region-item" data-region="GB">
+            <div class="region-flag">🇬🇧</div>
+            <div class="region-info">
+              <div class="region-name">英国</div>
+              <div class="region-lang">English</div>
+            </div>
+            <div class="selection-indicator"></div>
+          </div>
+          <div class="region-item" data-region="DE">
+            <div class="region-flag">🇩🇪</div>
+            <div class="region-info">
+              <div class="region-name">德国</div>
+              <div class="region-lang">Deutsch</div>
+            </div>
+            <div class="selection-indicator"></div>
+          </div>
+          <div class="region-item" data-region="FR">
+            <div class="region-flag">🇫🇷</div>
+            <div class="region-info">
+              <div class="region-name">法国</div>
+              <div class="region-lang">Français</div>
+            </div>
+            <div class="selection-indicator"></div>
+          </div>
+          <div class="region-item" data-region="JP">
+            <div class="region-flag">🇯🇵</div>
+            <div class="region-info">
+              <div class="region-name">日本</div>
+              <div class="region-lang">日本語</div>
+            </div>
+            <div class="selection-indicator"></div>
+          </div>
+          <div class="region-item" data-region="CN">
+            <div class="region-flag">🇨🇳</div>
+            <div class="region-info">
+              <div class="region-name">中国</div>
+              <div class="region-lang">中文</div>
+            </div>
+            <div class="selection-indicator"></div>
+          </div>
+          <div class="region-item" data-region="KR">
+            <div class="region-flag">🇰🇷</div>
+            <div class="region-info">
+              <div class="region-name">韩国</div>
+              <div class="region-lang">한국어</div>
+            </div>
+            <div class="selection-indicator"></div>
+          </div>
+          <div class="region-item" data-region="AE">
+            <div class="region-flag">🇦🇪</div>
+            <div class="region-info">
+              <div class="region-name">阿联酋</div>
+              <div class="region-lang">العربية</div>
+            </div>
+            <div class="selection-indicator"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 分析选项 -->
+      <section class="analysis-options">
+        <h3>分析选项</h3>
+        <div class="options-grid">
+          <label class="option-card">
+            <input type="checkbox" id="enableLocal" checked>
+            <div class="option-content">
+              <div class="option-header">
+                <span class="option-icon">⚡</span>
+                <span class="option-title">本地规则分析</span>
+                <span class="checkmark"></span>
+              </div>
+              <p class="option-desc">基于预定义规则的快速基础分析</p>
+            </div>
+          </label>
+          
+          <label class="option-card">
+            <input type="checkbox" id="enableAI" checked>
+            <div class="option-content">
+              <div class="option-header">
+                <span class="option-icon">🤖</span>
+                <span class="option-title">AI深度分析</span>
+                <span class="checkmark"></span>
+              </div>
+              <p class="option-desc">智能语义理解和深度内容分析</p>
+            </div>
+          </label>
+          
+          <label class="option-card">
+            <input type="checkbox" id="enablePerformance">
+            <div class="option-content">
+              <div class="option-header">
+                <span class="option-icon">📊</span>
+                <span class="option-title">性能分析</span>
+                <span class="checkmark"></span>
+              </div>
+              <p class="option-desc">页面加载速度和用户体验评估</p>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- 分析按钮 -->
+      <section class="analysis-actions">
+        <button class="btn btn-primary btn-large" id="analyzeBtn">
+          <span class="btn-icon">🔍</span>
+          <span class="btn-text">开始分析</span>
+        </button>
+        <div class="quick-actions">
+          <button class="btn btn-outline btn-sm" id="quickSettingsBtn">
+            <span class="btn-icon">⚙️</span>
+            快速设置
+          </button>
+          <button class="btn btn-outline btn-sm" id="clearCacheBtn">
+            <span class="btn-icon">🗑️</span>
+            清除缓存
+          </button>
+        </div>
+      </section>
+
+      <!-- 分析进度 -->
+      <section class="analysis-progress" id="analysisProgress" style="display: none;">
+        <div class="progress-header">
+          <h3>分析进行中</h3>
+          <button class="btn-stop" id="stopAnalysisBtn">⏹️</button>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="progress-percentage" id="progressPercentage">0%</div>
+        </div>
+        <div class="progress-status" id="progressStatus">初始化...</div>
+        <div class="progress-details">
+          <div class="progress-steps">
+            <div class="step" data-step="extract">📄 内容提取</div>
+            <div class="step" data-step="local">⚡ 本地分析</div>
+            <div class="step" data-step="ai">🤖 AI分析</div>
+            <div class="step" data-step="report">📊 生成报告</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 快速结果预览 -->
+      <section class="quick-results" id="quickResults" style="display: none;">
+        <h3>分析结果概览</h3>
+        <div class="results-summary">
+          <div class="overall-score-card">
+            <div class="score-circle">
+              <div class="score-number" id="overallScore">--</div>
+              <div class="score-label">总分</div>
+            </div>
+          </div>
+          <div class="scores-breakdown">
+            <div class="score-item">
+              <span class="score-category">🌐 语言适配</span>
+              <div class="score-bar">
+                <div class="score-fill" id="languageScore"></div>
+              </div>
+              <span class="score-value" id="languageValue">--</span>
+            </div>
+            <div class="score-item">
+              <span class="score-category">🎭 文化适配</span>
+              <div class="score-bar">
+                <div class="score-fill" id="cultureScore"></div>
+              </div>
+              <span class="score-value" id="cultureValue">--</span>
+            </div>
+            <div class="score-item">
+              <span class="score-category">⚖️ 合规性</span>
+              <div class="score-bar">
+                <div class="score-fill" id="complianceScore"></div>
+              </div>
+              <span class="score-value" id="complianceValue">--</span>
+            </div>
+            <div class="score-item">
+              <span class="score-category">👥 用户体验</span>
+              <div class="score-bar">
+                <div class="score-fill" id="uxScore"></div>
+              </div>
+              <span class="score-value" id="uxValue">--</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="quick-actions-results">
+          <button class="btn btn-primary" id="viewDetailedResults">
+            <span class="btn-icon">📈</span>
+            查看详细结果
+          </button>
+          <button class="btn btn-outline" id="exportQuickReport">
+            <span class="btn-icon">📄</span>
+            导出报告
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- 详细结果页面 -->
+    <div id="results" class="tab-content">
+      <div class="results-header">
+        <h2>详细分析结果</h2>
+        <div class="results-meta" id="resultsMeta"></div>
+      </div>
+      <div id="detailedResultsContainer">
+        <div class="no-results-placeholder">
+          <div class="placeholder-icon">📊</div>
+          <h3>暂无分析结果</h3>
+          <p>请先在分析器页面执行分析</p>
+          <button class="btn btn-primary" onclick="switchTab('analyzer')">
+            <span class="btn-icon">🔍</span>
+            开始分析
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 历史记录页面 -->
+    <div id="history" class="tab-content">
+      <div class="history-header">
+        <h2>分析历史</h2>
+        <div class="history-actions">
+          <button class="btn btn-outline btn-sm" id="clearHistoryBtn">清空历史</button>
+          <button class="btn btn-outline btn-sm" id="exportHistoryBtn">导出历史</button>
+        </div>
+      </div>
+      <div id="historyList">
+        <div class="no-history-placeholder">
+          <div class="placeholder-icon">📂</div>
+          <h3>暂无分析历史</h3>
+          <p>执行分析后，历史记录将显示在这里</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置页面 -->
+    <div id="settings" class="tab-content">
+      <div class="settings-header">
+        <h2>设置</h2>
+      </div>
+      
+      <!-- 快速设置 -->
+      <section class="settings-section">
+        <h3>分析设置</h3>
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="autoAnalyze">
+            <span class="checkmark"></span>
+            自动分析新页面
+          </label>
+          <p class="setting-desc">在支持的电商网站上自动触发分析</p>
+        </div>
+        
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="detailedReports" checked>
+            <span class="checkmark"></span>
+            生成详细报告
+          </label>
+          <p class="setting-desc">包含具体建议和优化方案</p>
+        </div>
+        
+        <div class="setting-item">
+          <label class="setting-label">
+            <input type="checkbox" id="enableCache" checked>
+            <span class="checkmark"></span>
+            启用结果缓存
+          </label>
+          <p class="setting-desc">缓存分析结果以提高性能</p>
+        </div>
+      </section>
+
+      <section class="settings-section">
+        <h3>服务器配置</h3>
+        <div class="setting-item">
+          <label for="serverAddress">后端服务器地址:</label>
+          <input type="text" id="serverAddress" value="http://192.168.31.196:3000" placeholder="http://192.168.31.196:3000">
+          <p class="setting-desc">配置后端AI分析服务器的地址</p>
+        </div>
+        
+        <div class="setting-item">
+          <label for="aiProvider">默认AI模型:</label>
+          <select id="aiProvider">
+            <option value="zhipu">GLM-4.5-AirX (智谱)</option>
+            <option value="deepseek">DeepSeek</option>
+            <option value="qwen">Qwen-Plus</option>
+            <option value="openai">GPT-4</option>
+            <option value="custom">自定义模型</option>
+          </select>
+          <p class="setting-desc">选择默认使用的AI分析服务商</p>
+        </div>
+      </section>
+
+      <div class="settings-actions">
+        <button class="btn btn-primary" id="saveSettings">保存设置</button>
+        <button class="btn btn-secondary" id="resetSettings">恢复默认</button>
+        <button class="btn btn-outline" id="openFullSettings">完整设置页面</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 脚本引入 -->
+  
+  
+  
+  
+  <script src="../src/core-services.js"></script>
+  <script src="sidebar.js"></script>
+</body>
+</html>
